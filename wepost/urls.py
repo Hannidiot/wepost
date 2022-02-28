@@ -18,10 +18,10 @@ from django.contrib import admin
 from django.urls import include, path
 from django.conf.urls.static import static
 
-from wepost_main.views import test
+from wepost_main.views import explore_page
 
 urlpatterns = [
-    path('', test, name='test'),
+    path('', explore_page, name='explore'),
     path('admin/', admin.site.urls),
     path('wepost/', include('wepost_main.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

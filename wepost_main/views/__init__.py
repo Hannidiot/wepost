@@ -1,7 +1,8 @@
 from .sample_view import test
-from .trending import trending_page
+from .album_view import *
 
 __all__ = [
     'test',
-    'trending_page'
+    'trending_page',
+    'explore_page'
 ]
