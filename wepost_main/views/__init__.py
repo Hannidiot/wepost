@@ -1,5 +1,5 @@
-from wepost_main.views.sample_view import test_response
+from .sample_view import test
 
 __all__ = [
-    'test_response',
+    'test',
 ]

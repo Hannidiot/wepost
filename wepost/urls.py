@@ -16,7 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 
+from wepost_main.views import test
+
 urlpatterns = [
+    path('', test, name='test'),
     path('admin/', admin.site.urls),
-    path('/', include('wepost_main.urls'))
+    path('wepost/', include('wepost_main.urls')),
 ]
