@@ -6,4 +6,5 @@ from django.urls import path
 
 urlpatterns = [
     path('test/', views.test, name='test'),
+    path('home/', views.trending_page, name='trending'),
 ]
