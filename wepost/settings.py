@@ -14,7 +14,9 @@ import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
+STATIC_DIR = os.path.join(BASE_DIR, 'static')
+TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
+MEDIA_DIR= os.path.join(BASE_DIR, 'media')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
@@ -58,7 +60,7 @@ ACCOUNT_USERNAME_MIN_LENGTH = 4
 #send email to login
 ACCOUNT_AUTHENTICATION_METHOD="username_email"
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS=7
-ACCOUNT_EMAIL_VERIFICATION="none"
+ACCOUNT_EMAIL_VERIFICATION="optional"
 #change password and then login auto
 ACCOUNT_LOGIN_ON_PASSWORD_RESET=True
 ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE=True
@@ -84,13 +86,15 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
+
 ROOT_URLCONF = 'wepost.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [TEMPLATE_DIR,],
+        'DIRS': [
+            TEMPLATE_DIR,
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -149,12 +153,15 @@ USE_L10N = True
 
 USE_TZ = True
 
-# set media
-MEDIA_DIR= os.path.join(BASE_DIR,'media')
-MEDIA_ROOT = MEDIA_DIR
-MEDIA_URL = '/media/'
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
+
 STATIC_URL = '/static/'
-STATIC_DIR = os.path.join(BASE_DIR, 'static')
-STATICFILES_DIRS = [STATIC_DIR, ]
+STATICFILES_DIRS = [
+    STATIC_DIR,
+]
+
+MEDIA_ROOT = MEDIA_DIR
+MEDIA_URL = '/media/'
+

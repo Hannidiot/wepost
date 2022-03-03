@@ -18,9 +18,13 @@ from django.urls import path
 from django.conf.urls import include
 from wepost_main.views import views
 
+
+
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('wepost_main/', include('wepost_main.urls', namespace='wepost_main')),
+    path('wepost/', include('wepost_main.urls')),
     path('accounts/', include('allauth.urls')),
     path('', views.index, name="index"),
 ]
