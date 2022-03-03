@@ -16,15 +16,24 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import include
+<<<<<<< HEAD
 from wepost_main.views import views
 
 
 
 
+=======
+from wepost_main.views import test
+>>>>>>> cff26924c6841450a47de7efcad0801cab9b76be
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+<<<<<<< HEAD
     path('wepost/', include('wepost_main.urls')),
     path('accounts/', include('allauth.urls')),
     path('', views.index, name="index"),
+=======
+    path('wepost_main/', include('wepost_main.urls', namespace='wepost_main')),
+    path('accounts/', include('allauth.urls')),
+>>>>>>> cff26924c6841450a47de7efcad0801cab9b76be
 ]
