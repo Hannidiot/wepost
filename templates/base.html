@@ -3,50 +3,15 @@
 
 <head>
     <title>Wepost here</title>
-    <link href="/static/bootstrap-3.3.7-dist/css/bootstrap.css" rel="stylesheet">
     {% load static %}
-
+    {% include 'header_css.html' %}
 </head>
 
 <body>
-    <div class="container-fluid" >
-        <nav class="navbar navbar-inverse" role="navigation">
-        <div class="navbar-brand">
-            <a href="#"><img src="static/images/logo.jpg" class="img-circle" style="height: 50px;width: 50px;margin: 0;padding: 0;margin-top: -14px;"></a>
-        </div>
-        <div>
-            <ul class="nav navbar-nav nav-tabs">
-                <li class="active"><a href="#" data-toggle="tab">Explore</a></li>
-                <li><a href="#" data-toggle="tab">Follow</a></li>
-                <li><a href="#" data-toggle="tab">Like</a></li>
-                <li><a href="#" data-toggle="tab">Trend</a></li>
-            </ul>
+{% include 'navigation.html' %}
 
 
-            <ul class="nav navbar-nav nav-tabs" style="margin-left: 800px">
-            <li><a style="margin: 0;padding: 0;margin-top: 5px;" href="#"><img src="static/images/head_img.jpg" class="img-circle" style="height: 40px;width: 40px;margin: 0;padding: 0;"> LoginUser: Leon</a></li>
-                <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menu<span class="caret"></span></a>
-                  <ul class="dropdown-menu">
-                    <li><a href="{% url 'account_login' %}">Login</a></li>
-                    <li><a href="{% url 'account_signup' %}">Signup</a></li>
-                    <li><a href="{% url 'account_logout' %}">Logout</a></li>
-                    <li><a href="{% url 'account_email' %}">Email</a></li>
-                    <li><a href="{% url 'account_change_password' %}">Changepwd</a></li>
-                  </ul>
-                </li>
-            </ul>
-        </div>
-
-
-
-    </nav>
-    </div>
-
-
-
-    <script src="/static/jquery-3.6.0/jquery-3.6.0.js"></script>
-    <script src="/static/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+{% include 'footer_js.html' %}
 </body>
 
 </html>

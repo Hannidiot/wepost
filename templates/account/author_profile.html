@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Wepost here</title>
+    {% include 'header_css.html' %}
+    {% load static %}
+</head>
+<body>
+{% include 'navigation.html' %}
+    <div class="container" id="profile_content">
+        <div class="panel">
+            <img src="/media/{{ request.user.userprofile.header_img }}" alt="..." class="img-circle" id="header_img_show" >
+            <label class="label-info"><h2>Head image</h2></label>
+            <form class="form-text col-lg-12" method="POST" action="{% url 'signuser:views_signuser_headerimg' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="form-group">
+
+                <tr>
+                    <td><input type="file" class="form-control-lg" id="header_img" name="header_img"
+                           placeholder="choose picture"></td>
+                </tr>
+                <tr>
+                    <td><button type="submit" class="btn btn-danger">Save</button></td>
+                </tr>
+            </div>
+
+            </form>
+        </div>
+
+
+
+        <div>
+            <form action="{% url 'signuser:views_signuser_profile' %}" method="post">
+                {% csrf_token %}
+                <tr class="table-info">
+                    <td><input type="text" name="username"  id="username" readonly value="{{request.user.username}}"></td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="text" name="first_name"  id="first_name" value="{{request.user.first_name}}" placeholder="please add first name">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="text" name="last_name"  id="last_name" value="{{request.user.last_name}}" placeholder="please add last name">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="hidden" name="password"  id="password" value="{{request.user.password}}" placeholder="please add last name">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="text" name="is_active"  id="is_active" value="{{request.user.is_active}}" readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                         <input type="text" name="is_superuser"  id="is_superuser" value="{{request.user.is_superuser}}" readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="text" name="date_joined" id="date_joined" value="{{request.user.date_joined}}" >
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="text" name="last_login"  id="last_login" readonly value="{{request.user.last_login}}" >
+                    </td>
+                </tr>
+
+
+
+
+
+
+
+
+
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+
+    </div>
+
+
+
+{% include 'footer_js.html' %}
+</body>
+</html>

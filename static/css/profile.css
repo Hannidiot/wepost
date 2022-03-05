@@ -1,0 +1,9 @@
+#profile_content #header_img_show{
+    height: 200px;
+    width:200px;
+}
+
+#img_label{
+    margin-left: 60px;
+    border: 1px solid #afd9ee;
+}

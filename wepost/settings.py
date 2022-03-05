@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'wepost_main',
+    'signuser',
     'django.contrib.sites',
     'allauth',
     'allauth.account',
@@ -75,7 +76,6 @@ EMAIL_HOST_USER='hanliangleon@qq.com'
 EMAIL_HOST_PASSWORD='ppvjmwusxcrqbjai'
 EMAIL_FROM = "hanliangleon@qq.com"
 
-
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -92,10 +92,7 @@ ROOT_URLCONF = 'wepost.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-<<<<<<< HEAD
-=======
 
->>>>>>> cff26924c6841450a47de7efcad0801cab9b76be
         'DIRS': [
             TEMPLATE_DIR,
         ],
@@ -162,18 +159,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
-<<<<<<< HEAD
-=======
 
->>>>>>> cff26924c6841450a47de7efcad0801cab9b76be
 STATICFILES_DIRS = [
     STATIC_DIR,
 ]
 
 MEDIA_ROOT = MEDIA_DIR
-<<<<<<< HEAD
+
 MEDIA_URL = '/media/'
 
-=======
-MEDIA_URL = '/media/'
->>>>>>> cff26924c6841450a47de7efcad0801cab9b76be
+

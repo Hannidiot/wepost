@@ -15,25 +15,21 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from django.conf.urls import include
-<<<<<<< HEAD
-from wepost_main.views import views
-
-
-
-
-=======
+from django.conf.urls import include,url
+from wepost_main.views import sample_view
 from wepost_main.views import test
->>>>>>> cff26924c6841450a47de7efcad0801cab9b76be
+from django.conf import settings
+from django.conf.urls.static import static
+from django.views.generic.base import RedirectView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-<<<<<<< HEAD
+    # path('', RedirectView.as_view(url='/wepost_main/index/')),
     path('wepost/', include('wepost_main.urls')),
     path('accounts/', include('allauth.urls')),
-    path('', views.index, name="index"),
-=======
-    path('wepost_main/', include('wepost_main.urls', namespace='wepost_main')),
-    path('accounts/', include('allauth.urls')),
->>>>>>> cff26924c6841450a47de7efcad0801cab9b76be
-]
+    path('', sample_view.index, name="index"),
+    path('accounts/', include('signuser.urls',namespace='signuser')),
+    # path('wepost_main/', include('wepost_main.urls', namespace='wepost_main')),
+    # path('signuser/',include('signuser.urls')),
+
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
