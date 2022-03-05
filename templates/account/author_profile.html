@@ -62,11 +62,11 @@
                          <input type="text" name="is_superuser"  id="is_superuser" value="{{request.user.is_superuser}}" readonly>
                     </td>
                 </tr>
-                <tr>
-                    <td>
-                        <input type="text" name="date_joined" id="date_joined" value="{{request.user.date_joined}}" >
-                    </td>
-                </tr>
+{#                <tr>#}
+{#                    <td>#}
+{#                        <input type="text" name="date_joined" id="date_joined" value="{{request.user.date_joined}}" >#}
+{#                    </td>#}
+{#                </tr>#}
                 <tr>
                     <td>
                         <input type="text" name="last_login"  id="last_login" readonly value="{{request.user.last_login}}" >
