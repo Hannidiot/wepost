@@ -1,0 +1,78 @@
+<html>
+    <head>
+        <title>
+            wepost
+        </title>
+        {% include 'header_css.html' %}
+    </head>
+    <body>
+    {% include 'navigation.html' %}
+        <div class="container">
+            <div class="row">
+
+                    <div class="panel panel-default email_list">
+                    <div class="text-center">
+                        <span class="page-header"><h4>Set Email Here</h4></span>
+                    </div>
+                    <form method="post" action="{% url 'account_email' %}">
+                        {% csrf_token %}
+                        {{ form.errors }}
+                        {% for user_ in user.emailaddress_set.all %}
+                            <table class="table">
+                                <tr class="page-header table-responsive text-center">
+                                    <td>choose</td>
+                                    <td>email</td>
+                                    <td>verification</td>
+                                    <td>primary</td>
+                                </tr>
+                                <tr class="text-center">
+                                    <td>
+                                        <input id="email_radio_{{forloop.counter}}" type="radio" value="{{ user_.email }}">
+                                    </td>
+                                    <td>
+                                        {{ user_.email }}
+                                    </td>
+                                    <td>
+                                        {% if user_.verified %}
+                                            <span>you have verified</span>
+                                        {% else %}
+                                            <span>you have not verified</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if user_.primary %}
+                                            <span>primary email</span>
+                                        {% else %}
+                                            <span>not primary</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                                <tr class="text-center">
+                                    <td>
+                                        <button  name="action_primary" type="submit" class="btn btn-info">Set primary email</button>
+                                    </td>
+                                    <td>
+                                        <button  name="action_send"  type="submit" class="btn btn-info">Send Again</button>
+                                    </td>
+                                    <td>
+                                        <button  name="action_remove"  type="submit" class="btn btn-info">Delete</button>
+                                    </td>
+                                </tr>
+                            </table>
+
+                    </form>
+                    <form method="post" action="{% url 'account_email' %}" class="text-center">
+                        {% csrf_token %}
+                        {{ form.errors }}
+                        <input type="email" name="email" class="form-control" id="email" placeholder="Add email here" />
+                        <button type="submit" name="action_add" class="btn btn-info" >添加邮箱</button>
+                    </form>
+
+                </div>
+
+            </div>
+        </div>
+        {% include 'footer_js.html' %}
+    </body>
+</html>

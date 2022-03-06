@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Wepost here</title>
+    {% load static %}
+    {% include 'header_css.html' %}
+</head>
+<body>
+{% include 'navigation.html' %}
+    <div class="container">
+    <div class="row">
+        <div class="col-md-offset-3 col-lg-5">
+            <form class="form-horizontal" method="POST" action="{% url 'account_login' %}">
+                {% csrf_token %}
+                {{ form.errors }}
+                <span class="heading">Wepost login</span>
+                <div class="form-group">
+                    <input type="text" class="form-control" name="login" id="inputEmail3" placeholder="Email login">
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control " name="password" id="inputPassword3" placeholder="Password" >
+                </div>
+                <div class="form-group">
+                    <div class="main-checkbox">
+                        <input type="checkbox" id="checkbox1" name="check"/>
+                        <label for="checkbox1"></label>
+                    </div>
+                    <span class="text">Remember me</span>
+                    <a class="button btn-default" href="{% url 'account_reset_password' %}" >Forget password?</a>
+                    <button type="submit" class="btn btn-info">Login</button>
+                </div>
+
+            </form>
+            <a href="{% url 'wepost_main:index' %}">Back</a>
+        </div>
+    </div>
+
+</div>
+
+    {% include 'footer_js.html' %}
+</body>
+</html>
+
+

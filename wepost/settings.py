@@ -16,7 +16,7 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 STATIC_DIR = os.path.join(BASE_DIR, 'static')
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
-MEDIA_DIR = os.path.join(BASE_DIR, 'media')
+MEDIA_DIR= os.path.join(BASE_DIR, 'media')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
@@ -39,8 +39,42 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'wepost_main'
+    'wepost_main',
+    'signuser',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.github',
 ]
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
+
+SITE_ID = 1
+
+LOGIN_REDIRECT_URL = '/'
+ACCOUNT_LOGOUT_REDIRECT_URL="/"
+ACCOUNT_USERNAME_MIN_LENGTH = 4
+#send email to login
+ACCOUNT_AUTHENTICATION_METHOD="username_email"
+ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS=7
+ACCOUNT_EMAIL_VERIFICATION="optional"
+#change password and then login auto
+ACCOUNT_LOGIN_ON_PASSWORD_RESET=True
+ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE=True
+ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE = True
+# email unique
+ACCOUNT_UNIQUE_EMAIL=True
+ACCOUNT_LOGOUT_ON_GET = True
+LOGOUT_REDIRECT_URL = '/accounts/login/'
+EMAIL_HOST='smtp.qq.com'
+EMAIL_PORT='465'
+EMAIL_HOST_USER='hanliangleon@qq.com'
+EMAIL_HOST_PASSWORD='ppvjmwusxcrqbjai'
+EMAIL_FROM = "hanliangleon@qq.com"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -52,11 +86,13 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+
 ROOT_URLCONF = 'wepost.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
+
         'DIRS': [
             TEMPLATE_DIR,
         ],
@@ -123,9 +159,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
 STATICFILES_DIRS = [
     STATIC_DIR,
 ]
 
 MEDIA_ROOT = MEDIA_DIR
+
 MEDIA_URL = '/media/'
+
+
