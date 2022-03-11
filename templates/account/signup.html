@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Wepost here</title>
+    {% include 'header_css.html' %}
+
+</head>
+<body id="body">
+{% include 'navigation.html' %}
+    <div class="container">
+    <div class="row">
+        <div class="col-md-offset-3 col-md-6">
+            <form class="form-horizontal" method="POST" action="{% url 'account_signup' %}">
+                {% csrf_token %}
+                {{ form.errors }}
+                <span class="heading">Wepost Register</span>
+                <div class="form-group">
+                    <div class="col-lg-11">
+                        <input type="text" name="username" class="form-control " id="id_username" placeholder="account">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-11">
+                        <input type="email" name="email1" class="form-control " id="id_email" placeholder="email again">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-11">
+                        <input type="email" name="email2" class="form-control " id="id_email2" placeholder="email again">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-11">
+                        <input type="password" name="password1" class="form-control " id="id_password1" placeholder="password">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-11">
+                        <input type="password" name="password2" class="form-control " id="id_password2" placeholder="password again">
+                    </div>
+                </div>
+                <a href="{% url 'wepost_main:index' %}">Back</a>
+                <button type="submit" class="btn btn-default">Register</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% include 'footer_js.html' %}
+</body>
+</html>
+
+
