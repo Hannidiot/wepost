@@ -1,11 +1,12 @@
 
 from django.urls import path
-from wepost_main.views import sample_view
-from .views import sample_view
+import wepost_main.views as views
 app_name = 'wepost_main'
 
 urlpatterns = [
-    path("index/", sample_view.index, name="index"),
-    path('test/', sample_view.test, name='test'),
+    path('test/', views.test, name='test'),
+    path('home/', views.trending_page, name='trending'),
+    path('explore/', views.explore_page, name='explore'),
+    path("index/", views.sample_view.index, name="index"),
 ]
 

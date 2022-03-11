@@ -1,0 +1,10 @@
+{% extends 'wepost_main/components/base.html' %}
+{% load album_pages %}
+
+{% block title_block %}
+  Explore
+{% endblock title_block %}
+
+{% block body_block %}
+  {% get_explore_albums %}
+{% endblock body_block %}

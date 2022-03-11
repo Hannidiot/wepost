@@ -1,0 +1,12 @@
+body {
+    padding-top: 4.5rem;
+}
+
+.img-avatar {
+    width: 2rem;
+    height: 2rem;
+}
+
+.text-uname {
+    font-size: 1.25rem;
+}
