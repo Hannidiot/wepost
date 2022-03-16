@@ -3,7 +3,7 @@ from django.shortcuts import render
 
 
 def trending_page(request: HttpRequest):
-    return render(request, 'wepost_main/components/base.html')
+    return render(request, 'base.html')
 
 
 def explore_page(request: HttpRequest):
