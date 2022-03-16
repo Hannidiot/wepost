@@ -1,17 +1,48 @@
 <!DOCTYPE html>
-<html>
+{% load staticfiles %}
+{% load navbar %}
 
+<html lang="en">
 <head>
-    <title>Wepost here</title>
-    {% load static %}
-    {% include 'header_css.html' %}
+  <title>Wepost - {% block title_block %}Post Your Life Moments{% endblock title_block %}</title>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="Minhao, Hanliang, Wenjing, Zeyu, Xiaohan">
+
+  <!-- Bootstrap core CSS -->
+  <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+  <link href="{% static '/bootstrap-3.3.7-dist/css/bootstrap.css' %}" rel="stylesheet">
+
+  {% comment %} todo: remove this css from here, place them in their page {% endcomment %}
+  {% block scope_css_block %}
+  {% endblock scope_css_block %}
+  <link href="{% static '/css/login.css' %}" rel="stylesheet">
+  <link href="{% static '/css/email.css' %}" rel="stylesheet">
+  <link href="{% static '/css/signup.css' %}" rel="stylesheet">
+  <link href="{% static '/css/profile.css' %}" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/base.css' %}" />
 </head>
-
 <body>
-{% include 'navigation.html' %}
+  {% block nav_block %}
+    {% navbar %}
+  {% endblock nav_block %}
 
+  <main role="main" class="container">
+    {% block body_block %}Place body content here!{% endblock body_block %}
+  </main>
 
-{% include 'footer_js.html' %}
+  <!-- Bootstrap core JavaScript -->
+  <!-- Placed at the end of the document so the pages load faster -->
+  <script src="{% static 'js/jquery-3.3.1.slim.min.js' %}" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script>window.jQuery || document.write('<script src="{% static 'js/juqery-slim.min.js' %}"><\/script>')</script>
+  <script src="{% static 'js/bootstrap.bundle.min.js' %}" integrity="sha384-zDnhMsjVZfS3hiP7oCBRmfjkQC4fzxVxFhBx8Hkz2aZX8gEvA/jsP3eXRCvzTofP" crossorigin="anonymous"></script>
+  <script src="{% static 'js/feather.min.js' %}"></script>
+  <script src="{% static 'js/dashboard.js' %}"></script>
+  <script src="{% static '/jquery-3.6.0/jquery-3.6.0.js' %}"></script>
+  <script src="{% static '/bootstrap-3.3.7-dist/js/bootstrap.js' %}"></script>
+  {% block scope_script_block %}
+  {% endblock scope_script_block %}
 </body>
-
 </html>
