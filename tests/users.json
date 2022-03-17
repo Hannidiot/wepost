@@ -1,0 +1,14 @@
+[
+    {
+        "username": "test_viewer",
+        "password": "test"
+    },
+    {
+        "username": "test_poster",
+        "password": "test"
+    },
+    {
+        "username": "test_commentor",
+        "password": "test"
+    }
+]
