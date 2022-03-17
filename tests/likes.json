@@ -1,4 +1,4 @@
 [
-    { "user": "test_viewer", "post": "cat1" },
-    { "user": "test_viewer", "post": "dog1" }
+    { "username": "test_viewer", "post_title": "cat1" },
+    { "username": "test_viewer", "post_title": "dog1" }
 ]

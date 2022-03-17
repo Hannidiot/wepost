@@ -1,10 +1,10 @@
 [
     { 
-        "user": "test_commentor", "post": "cat1", 
+        "username": "test_commentor", "post_title": "cat1", 
         "content": "Nisi elit dolor ullamco do nisi adipisicing laborum consequat laborum in cupidatat veniam deserunt." 
     },
     {
-        "user": "test_commentor", "post": "dog1",
+        "username": "test_commentor", "post_title": "dog1",
         "content": "Magna est enim ad consectetur sunt deserunt elit Lorem ex non sunt esse commodo aliquip."
     }
 ]

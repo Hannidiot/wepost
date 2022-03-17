@@ -11,5 +11,5 @@ class UserProfile(models.Model):
 
 
 class UserRelation(models.Model):
-    user = models.ForeignKey(to=User, on_delete=models.DO_NOTHING)
-    follower = models.ForeignKey(to=User, on_delete=models.CASCADE)
+    followed_user = models.ForeignKey(to=User, on_delete=models.DO_NOTHING, related_name="followed_user")
+    follower = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name="follower")

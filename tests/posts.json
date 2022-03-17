@@ -1,25 +1,25 @@
 [
     {
-        "user": "test_poster",
+        "username": "test_poster",
         "title": "cat1",
         "description": "Consectetur excepteur eiusmod ex aute elit eu magna duis Lorem in laboris.",
-        "pic": "cat1.jpeg",
+        "pic_name": "cat1.jpeg",
         "likes": 10,
         "views": 32
     },
     {
-        "user": "test_poster",
+        "username": "test_poster",
         "title": "cat2",
         "description": "Eiusmod qui nisi minim qui laborum ex.",
-        "pic": "cat2.jpeg",
+        "pic_name": "cat2.jpeg",
         "likes": 0,
         "views": 10
     },
     {
-        "user": "test_commentor",
+        "username": "test_commentor",
         "title": "dog1",
         "description": "Nostrud ullamco dolore ipsum fugiat incididunt mollit minim ipsum ea anim tempor.",
-        "pic": "dog1.jpeg",
+        "pic_name": "dog1.jpeg",
         "likes": 5,
         "views": 0
     }
