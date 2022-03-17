@@ -3,19 +3,43 @@ from django.contrib.auth.models import User
 
 
 class Post(models.Model):
-    post_id = models.AutoField(primary_key=True)
-    poster = models.ForeignKey(to=User, on_delete=models.DO_NOTHING)
+    user = models.ForeignKey(to=User, on_delete=models.DO_NOTHING)
     title = models.CharField(max_length=120)
     description = models.TextField(default="")
     picture = models.ImageField(upload_to="post_images")
-    post_time = models.TimeField()
-    like_times = models.IntegerField(default=0)
+    post_time = models.DateTimeField(auto_now=True)
+    likes = models.IntegerField(default=0)
+    views = models.IntegerField(default=0)
+    comments = models.IntegerField(default=0)
 
 
-class LikePost(models.Model):
-    post_id = models.ForeignKey(to=Post, on_delete=models.DO_NOTHING)
-    uid = models.ForeignKey(to=User, on_delete=models.DO_NOTHING)
-    like_time = models.TimeField()
+class Like(models.Model):
+    user = models.ForeignKey(to=User, on_delete=models.CASCADE)
+    post = models.ForeignKey(to=Post, on_delete=models.CASCADE)
+    like_time = models.DateTimeField(auto_now=True)
 
     def save(self, *args, **kwargs):
-        post = Post.objects.get()
+        post = Post.objects.get(id=self.post.id)
+        post.likes += 1
+        post.save()
+        super(Like, self).save(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        post = Post.objects.get(id=self.post.id)
+        post.likes -= 1
+        post.save()
+        return super(Like, self).delete(*args, **kwargs)
+
+
+class Comment(models.Model):
+    post = models.ForeignKey(to=Post, on_delete=models.CASCADE)
+    user = models.ForeignKey(to=User, on_delete=models.CASCADE)
+    content = models.TextField(default="")
+    comment_time = models.DateTimeField(auto_now=True)
+
+
+class Collection(models.Model):
+    creator = models.ForeignKey(to=User, on_delete=models.DO_NOTHING)
+    title = models.CharField(max_length=120)
+    description = models.CharField(max_length=300)
+    create_date = models.DateTimeField(auto_now=True)
