@@ -49,13 +49,13 @@ def add_user(username, password):
 
 
 def add_post(username, title, description, pic_name, likes=0, views=0):
-    user = User.objects.get(username=username)[0]
+    user = User.objects.get_or_create(username=username)[0]
 
     post = Post.objects.get_or_create(user=user, title=title)[0]
     post.description = description
     post.picture = SimpleUploadedFile(
         name=pic_name,
-        content=open(os.path.join(IMAGE_DIR, pic_name))
+        content=open(os.path.join(IMAGE_DIR, pic_name), 'rb').read()
         )
     post.likes = likes
     post.views = views
@@ -66,7 +66,7 @@ def add_post(username, title, description, pic_name, likes=0, views=0):
 
 def add_like(username, post_title):
     user = User.objects.get_or_create(username=username)[0]
-    post = Post.objects.get_or_create(user=user, title=post_title)[0]
+    post = Post.objects.get_or_create(title=post_title)[0]
 
     like = Like.objects.get_or_create(user=user, post=post)[0]
     like.save()
@@ -75,11 +75,15 @@ def add_like(username, post_title):
 
 
 def add_comment(username, post_title, content):
-    user = User.objects.get(username=username)[0]
-    post = Post.objects.get(title=post_title)[0]
+    user = User.objects.get_or_create(username=username)[0]
+    post = Post.objects.get_or_create(title=post_title)[0]
 
     comment = Comment.objects.get_or_create(user=user, post=post)[0]
     comment.content = content
     comment.save()
 
     return comment
+
+if __name__ == '__main__':
+    populate()
+    
