@@ -13,12 +13,24 @@ def post_detail_page(request: HttpRequest, post_id):
 
 
 @login_required
-def post_edit_page(request: HttpRequest, post_id=None):
-    pass
+def post_edit(request: HttpRequest, post_id=None):
+    if request.method == 'POST':
+        pass
+
+    return render()
 
 @login_required
-def post_delete(request: HttpRequest, post_id=None):
-    pass
+def post_delete(request: HttpRequest, post_id):
+    if request.method == 'POST':
+        post = Post.objects.get(id=post_id)
+        user = request.user
+        if post == None: return JsonResponse({"status": "fail", "msg": "post doesn't exist"})
+        if post.user_id != user.id: return JsonResponse({"status": "fail", "msg": "you dont have the perimission to do this"})
+
+        post.delete()
+        return JsonResponse({"status": "success", "msg": ""})
+
+    return redirect(reverse("wepost_main:explore"))
 
 
 @login_required

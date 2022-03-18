@@ -7,7 +7,7 @@ __all__ = [
     'trending_page',
     'explore_page',
     'post_detail_page',
-    'post_edit_page',
+    'post_edit',
     'like',
     'unlike',
     'add_comment',
