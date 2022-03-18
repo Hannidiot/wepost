@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 from signuser.models import *
 
-def create_user():
+def create_test_user():
     user = User()
     user.username = "test"
     user.password = "test"
