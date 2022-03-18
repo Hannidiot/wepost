@@ -39,10 +39,11 @@ def populate():
         add_comment(**comment)
 
 
-def add_user(username, password):
-    user = User.objects.get_or_create(username=username)[0]
+def add_user(username, password, email):
+    user = User.objects.get_or_create(email=email)[0]
 
-    user.password = password
+    user.username = username
+    user.set_password(password)
     user.save()
 
     return user
