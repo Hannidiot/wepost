@@ -18,18 +18,6 @@ class Like(models.Model):
     post = models.ForeignKey(to=Post, on_delete=models.CASCADE)
     like_time = models.DateTimeField(auto_now=True)
 
-    def save(self, *args, **kwargs):
-        post = Post.objects.get(id=self.post.id)
-        post.likes += 1
-        post.save()
-        super(Like, self).save(*args, **kwargs)
-
-    def delete(self, *args, **kwargs):
-        post = Post.objects.get(id=self.post.id)
-        post.likes -= 1
-        post.save()
-        return super(Like, self).delete(*args, **kwargs)
-
 
 class Comment(models.Model):
     post = models.ForeignKey(to=Post, on_delete=models.CASCADE)

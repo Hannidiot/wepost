@@ -1,14 +1,17 @@
 [
     {
         "username": "test_viewer",
-        "password": "test"
+        "password": "test",
+        "email": "viewer@test.com"
     },
     {
         "username": "test_poster",
-        "password": "test"
+        "password": "test",
+        "email": "poster@test.com"
     },
     {
         "username": "test_commentor",
-        "password": "test"
+        "password": "test",
+        "email": "commentor@test.com"
     }
 ]
