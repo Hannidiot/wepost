@@ -1,15 +1,12 @@
-from django.shortcuts import render
-from django.views.decorators.gzip import gzip_page
-from django.views.decorators.http import require_POST
+from django.http import HttpRequest
+from django.shortcuts import render, redirect
 
 from .forms import UserForm
-# Create your views here.
 from django.contrib.auth.decorators import login_required
-from . import signals
 
-@gzip_page
+
 @login_required
-def views_signuser_profile(request):
+def user_profile(request: HttpRequest, user_id):
     if request.method == "POST":
 
         user_form = UserForm(request.POST, instance=request.user)
@@ -27,3 +24,19 @@ def views_signuser_header_img(request):
     user_profile.header_img = header_img
     user_profile.save()
     return render(request, "account/author_profile.html")
+
+
+@login_required
+def follow(request: HttpRequest, user_id):
+    if request.method == 'POST':
+        pass
+
+    return redirect("index")
+
+
+@login_required
+def unfollow(request: HttpRequest, user_id):
+    if request.method == 'POST':
+        pass
+
+    return redirect("index")

@@ -20,10 +20,10 @@ class UserProfileTest(TestCase):
 class UserRelationModelTest(TestCase):
     
     def test_follow(self):
-        pass
+        populate()
 
     def test_unfollow(self):
-        pass
+        populate()
 
 
 class LoginTest(TestCase):
