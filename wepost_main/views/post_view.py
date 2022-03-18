@@ -6,6 +6,7 @@ from django.urls import reverse
 
 from wepost_main.utils import JsonResponse
 from wepost_main.models import *
+from wepost_main.forms import *
 
 
 def post_detail_page(request: HttpRequest, post_id):
@@ -13,11 +14,35 @@ def post_detail_page(request: HttpRequest, post_id):
 
 
 @login_required
-def post_edit(request: HttpRequest, post_id=None):
-    if request.method == 'POST':
-        pass
+def post_edit(request: HttpRequest, post_id):
+    post = Post.objects.get(id=post_id)
+    form = PostForm(instance=post)
 
-    return render()
+    if request.method == 'POST':
+        form = PostForm(request.POST, instance=post)
+
+        if form.is_valid():
+            post = form.save(commit=True)
+
+            return redirect(reverse("wepost_main:post_detail", kwargs={"post_id": post_id}))
+
+    return render(request, "wepost_main/post_edit.html", {"form": form})
+
+
+@login_required
+def post_create(request: HttpRequest):
+    form = PostForm()
+    if request.method == 'POST':
+        form = PostForm(request.POST)
+
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.save()
+
+            return redirect(reverse('wepost_main:post_detail', kwargs={"post_id": post.id}))
+
+    return render(request, "wepost_main/post_edit.html", {"form": form})
+
 
 @login_required
 def post_delete(request: HttpRequest, post_id):
