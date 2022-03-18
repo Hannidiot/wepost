@@ -8,6 +8,7 @@ __all__ = [
     'explore_page',
     'post_detail_page',
     'post_edit',
+    'post_create',
     'like',
     'unlike',
     'add_comment',
