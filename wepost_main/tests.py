@@ -64,7 +64,7 @@ class ExploreTest(TestCase):
 
 class LikeTest(TestCase):
 
-    def test_like_when_no_user_login(self):
+    def test_like_when_no_login(self):
         response = self.client.post(reverse("wepost_main:like", kwargs={"post_id": "123"}))
         self.assertEqual(response.status_code, 302)
         self.assertIn("/accounts/login", response['location'])
@@ -78,6 +78,10 @@ class LikeTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "success")
 
+        temp_likes = post.likes
+        post = Post.objects.get(title="cat2")
+        self.assertEqual(temp_likes + 1, post.likes)
+
     def test_unlike(self):
         populate()
         self.client.login(username="test_viewer", password="test")
@@ -87,11 +91,60 @@ class LikeTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "success")
 
+        temp_likes = post.likes
+        post = Post.objects.get(title="cat1")
+        self.assertEqual(temp_likes - 1, post.likes)
+
     def test_unlike_when_no_like(self):
         populate()
         self.client.login(username="test_viewer", password="test")
 
         post = Post.objects.get(title="cat2")
         response = self.client.post(reverse("wepost_main:unlike", kwargs={"post_id": post.id}))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "fail")
+
+
+class CommentTest(TestCase):
+
+    def test_add_comment(self):
+        populate()
+
+        self.client.login(username="test_commentor", password="test")
+        post = Post.objects.get(title="cat2")
+        content = "Irure laboris excepteur ullamco ullamco laboris."
+        response = self.client.post(reverse("wepost_main:comment_add", kwargs={"post_id": post.id}),
+                                    {"content": content})
+        
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "success")
+
+        temp_comments = post.comments
+        post = Post.objects.get(title="cat2")
+        self.assertEqual(temp_comments + 1, post.comments)
+
+    def test_delete_comment(self):
+        populate()
+        self.client.login(username="test_commentor", password="test")
+
+        user = User.objects.get(username="test_commentor")
+        post = Post.objects.get(title="cat1")
+        comment = Comment.objects.get(user_id=user.id, post_id=post.id)
+        response = self.client.post(reverse("wepost_main:comment_delete", 
+                kwargs={"post_id": post.id, "comment_id": comment.id}))
+        
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "success")
+
+    def test_delete_others_comment(self):
+        populate()
+        self.client.login(username="test_viewer", password="test")
+
+        user = User.objects.get(username="test_commentor")
+        post = Post.objects.get(title="cat1")
+        comment = Comment.objects.get(user_id=user.id, post_id=post.id)
+        response = self.client.post(reverse("wepost_main:comment_delete", 
+                kwargs={"post_id": post.id, "comment_id": comment.id}))
+        
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "fail")
