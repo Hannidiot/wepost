@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-from .util import eu_header_img
+from .utils import eu_header_img
 
 
 class UserProfile(models.Model):

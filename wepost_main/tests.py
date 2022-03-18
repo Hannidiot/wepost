@@ -1,9 +1,12 @@
 from django.test import TestCase
 from django.urls import reverse
+from django.core.files.uploadedfile import SimpleUploadedFile
+
+import os
 
 from wepost_main.models import *
 from signuser.tests import create_test_user
-from populate_script import populate
+from populate_script import populate, IMAGE_DIR
 
 def create_post(user):
     post = Post()
@@ -26,7 +29,7 @@ def create_comment(user, post):
     return comment
 
 
-class TestPageTest(TestCase):
+class TestPageTests(TestCase):
 
     def test_page_returns_correct_html(self):
         response = self.client.get('/wepost/test/')
@@ -35,7 +38,7 @@ class TestPageTest(TestCase):
         self.assertTemplateUsed(response, 'wepost_main/test.html')
 
 
-class BasePageTest(TestCase):
+class BasePageTests(TestCase):
     
     def setUp(self):
         self.response = self.client.get('/wepost/home/')
@@ -47,7 +50,7 @@ class BasePageTest(TestCase):
         self.assertContains(self.response, 'Place body content here!')
 
 
-class ExploreTest(TestCase):
+class ExploreTests(TestCase):
 
     def test_page_returns_correct_html(self):
         response = self.client.get('/wepost/explore/')
@@ -62,7 +65,7 @@ class ExploreTest(TestCase):
         self.assertContains(response, "Login")
 
 
-class LikeTest(TestCase):
+class LikeApiTests(TestCase):
 
     def test_like_when_no_login(self):
         response = self.client.post(reverse("wepost_main:like", kwargs={"post_id": "123"}))
@@ -105,7 +108,7 @@ class LikeTest(TestCase):
         self.assertContains(response, "fail")
 
 
-class CommentTest(TestCase):
+class CommentApiTests(TestCase):
 
     def test_add_comment(self):
         populate()
@@ -148,3 +151,54 @@ class CommentTest(TestCase):
         
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "fail")
+
+
+class PostTests(TestCase):
+    
+    def test_create_post(self):
+        populate()
+        self.client.login(username="test_poster", password="test")
+
+        new_post = {
+            "title": "test_upload_cat",
+            "description": "Esse officia enim est officia.",
+            "picture": open(os.path.join(IMAGE_DIR, "cat3.jpeg"), 'rb')
+        }
+
+        response = self.client.post(reverse("wepost_main:post_create"), new_post)
+        self.assertEqual(response.status_code, 302)
+        self.assertIn(f"/wepost/post/", response['location'])
+
+        posts = Post.objects.all()
+        self.assertEqual(len(posts), 4)
+
+
+    def test_delete_post(self):
+        populate()
+        self.client.login(username="test_poster", password="test")
+        
+        post = Post.objects.get(title="cat2")
+        response = self.client.post(reverse("wepost_main:post_delete", kwargs={"post_id": post.id}))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "success")
+
+        posts = Post.objects.all()
+        self.assertEqual(len(posts), 2)
+
+
+    def test_edit_post(self):
+        populate()
+        self.client.login(username="test_poster", password="test")
+
+        post = Post.objects.get(title="cat2")
+        new_post = {
+            "title": "test_edit_cat",
+            "description": "Esse officia enim est officia.",
+            "picture": post.picture
+        }
+        response = self.client.post(reverse("wepost_main:post_edit", kwargs={"post_id": post.id}), new_post)
+        self.assertEqual(response.status_code, 302)
+        self.assertIn(f"/wepost/post/{post.id}/", response['location'])
+
+        post = Post.objects.get(id=post.id)
+        self.assertEqual(post.title, "test_edit_cat")

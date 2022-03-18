@@ -6,19 +6,71 @@ from django.urls import reverse
 
 from wepost_main.utils import JsonResponse
 from wepost_main.models import *
+from wepost_main.forms import *
 
 
 def post_detail_page(request: HttpRequest, post_id):
-    pass
+    post = Post.objects.get(id=post_id)
+    comments = Comment.objects.filter(post_id=post.id).order_by('-comment_time')
+    context = {
+        'post': post,
+        'comments': comments
+    }
+    return render(request, "wepost_main/post_detail.html", context)
 
 
 @login_required
-def post_edit_page(request: HttpRequest, post_id=None):
-    pass
+def post_edit(request: HttpRequest, post_id):
+    post = Post.objects.get(id=post_id)
+    form = PostForm(instance=post)
+    user = request.user
+
+    if post.user_id != user.id:
+        return redirect(reverse("index"))
+
+    if request.method == 'POST':
+        form = PostForm(request.POST, request.FILES, instance=post)
+
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.user_id = user.id
+            post.save()
+
+            return redirect(reverse("wepost_main:post_detail", kwargs={"post_id": post_id}))
+
+    return render(request, "wepost_main/post_edit.html", {"form": form})
+
 
 @login_required
-def post_delete(request: HttpRequest, post_id=None):
-    pass
+def post_create(request: HttpRequest):
+    form = PostForm()
+    user = request.user
+
+    if request.method == 'POST':
+        form = PostForm(request.POST, request.FILES)
+
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.user_id = user.id
+            post.save()
+
+            return redirect(reverse('wepost_main:post_detail', kwargs={"post_id": post.id}))
+
+    return render(request, "wepost_main/post_edit.html", {"form": form})
+
+
+@login_required
+def post_delete(request: HttpRequest, post_id):
+    if request.method == 'POST':
+        post = Post.objects.get(id=post_id)
+        user = request.user
+        if post == None: return JsonResponse({"status": "fail", "msg": "post doesn't exist"})
+        if post.user_id != user.id: return JsonResponse({"status": "fail", "msg": "you dont have the perimission to do this"})
+
+        post.delete()
+        return JsonResponse({"status": "success", "msg": ""})
+
+    return redirect(reverse("wepost_main:explore"))
 
 
 @login_required

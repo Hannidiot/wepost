@@ -2,6 +2,12 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
+class PostImage(models.Model):
+    owner = models.ForeignKey(to=User, on_delete=models.DO_NOTHING)
+    image = models.ImageField(upload_to="post_images")
+    upload_time = models.DateTimeField(auto_now=True)
+
+
 class Post(models.Model):
     user = models.ForeignKey(to=User, on_delete=models.DO_NOTHING)
     title = models.CharField(max_length=120)
@@ -24,10 +30,3 @@ class Comment(models.Model):
     user = models.ForeignKey(to=User, on_delete=models.CASCADE)
     content = models.TextField(default="")
     comment_time = models.DateTimeField(auto_now=True)
-
-
-class Collection(models.Model):
-    creator = models.ForeignKey(to=User, on_delete=models.DO_NOTHING)
-    title = models.CharField(max_length=120)
-    description = models.CharField(max_length=300)
-    create_date = models.DateTimeField(auto_now=True)
