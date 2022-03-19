@@ -1,0 +1,27 @@
+{% for post in post_list %}
+  <div class="card mb-4 shadow-sm">
+    <div class="card-header">
+      <a class="media">
+        <img id="avatar-{{ post.user.username }}" src="{% static 'images/svg/avatar.svg' %}" class="img-avatar" alt="default avatar" />
+        <div class="media-body">
+          <span class="p-3">{{ post.user.username }}</span>
+        </div>
+      </a>
+    </div>
+
+    <a href="#">
+      <img src="{{ post.pictures }}"/>
+    </a>
+
+    <div class="card-body">
+      <p class="card-text">{{ post.description }}</p>
+      <div class="d-flex justify-content-between align-items-center">
+        <div class="btn-group">
+          <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+          <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+        </div>
+        <small class="text-muted">9 mins</small>
+      </div>
+    </div>
+  </div>
+{% endfor %}

@@ -1,5 +1,10 @@
 {% extends 'base.html' %}
+{% load static %}
 {% load album_pages %}
+
+{% block scope_css_block %}
+  <link rel="stylesheet" href="{% static 'css/main_page.css' %}" />
+{% endblock scope_css_block %}
 
 {% block title_block %}
   Explore
@@ -8,3 +13,12 @@
 {% block body_block %}
   {% get_explore_albums %}
 {% endblock body_block %}
+
+{% block scope_script_block %}
+  <script src="{% static 'js/main_page.js' %}"></script>
+  <script>
+    $(document).ready(function () {
+      
+    })
+  </script>
+{% endblock scope_script_block %}

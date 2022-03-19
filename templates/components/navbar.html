@@ -1,10 +1,10 @@
-<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-  <a class="navbar-brand" href="#">Wepost</a>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+  <a class="navbar-brand" href="/">Wepost</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarCollapse">
-    <ul class="navbar-nav mr-auto">
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
       <li class="nav-item active">
         <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
       </li>
@@ -15,10 +15,15 @@
         <a class="nav-link disabled">Disabled</a>
       </li>
     </ul>
-    <div class="mt-2 mt-md-0 ">
-      {% comment %} todo: add user login verification logic {% endcomment %}
-      <button class="btn btn-primary my-2 my-sm-0">Login</button>
-      <button class="btn btn-primary my-2 my-sm-0">Register</button>
-    </div>
+    
+    <form class="form-inline my-2 my-md-0">
+      {% if user.is_authenticated %}
+        <button class="form-control btn btn-primary m-1 my-sm-0">Login</button>
+        <button class="form-control btn btn-primary m-1 my-sm-0">Register</button>
+      {% else %}
+        <button class="form-control btn btn-primary m-1 my-sm-0">Login</button>
+        <button class="form-control btn btn-primary m-1 my-sm-0">Register</button>
+      {% endif %}
+    </form>
   </div>
 </nav>
