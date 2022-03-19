@@ -5,7 +5,6 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 import os
 
 from wepost_main.models import *
-from signuser.tests import create_test_user
 from populate_script import populate, IMAGE_DIR
 
 def create_post(user):

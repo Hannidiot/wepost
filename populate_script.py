@@ -1,4 +1,5 @@
 import os
+
 os.environ.setdefault('DJANGO_SETTINGS_MODULE',
                       'wepost.settings')
 
@@ -11,6 +12,7 @@ from django.conf import settings
 from django.core.files.uploadedfile import SimpleUploadedFile
 
 from wepost_main.models import *
+from signuser.models import *
 
 BASE_DIR = settings.BASE_DIR
 TEST_DIR = os.path.join(BASE_DIR, 'tests')
@@ -25,6 +27,7 @@ def populate():
     posts = load_json_from_file("posts.json")
     likes = load_json_from_file("likes.json")
     comments = load_json_from_file("comments.json")
+    user_relations = load_json_from_file("relations.json")
 
     for user in users:
         add_user(**user)
@@ -38,15 +41,8 @@ def populate():
     for comment in comments:
         add_comment(**comment)
 
-
-def add_user(username, password, email):
-    user = User.objects.get_or_create(email=email)[0]
-
-    user.username = username
-    user.set_password(password)
-    user.save()
-
-    return user
+    for relation in user_relations:
+        add_user_relation(**relation)
 
 
 def add_post(username, title, description, pic_name, likes=0, views=0):
@@ -84,6 +80,34 @@ def add_comment(username, post_title, content):
     comment.save()
 
     return comment
+
+
+def add_profile(user, intro, gender, birthday=datetime(1970, 1, 1)):
+    up = UserProfile.objects.get_or_create(user_id=user.id)[0]
+    up.intro = intro
+    up.gender = gender
+    up.birthday = birthday
+    up.save()
+    return up
+
+
+def add_user_relation(followed, followers):
+    followed_user = User.objects.get(username=followed)
+    for follower in followers:
+        follower_user = User.objects.get(username=follower)
+        ur = UserRelation.objects.get_or_create(followed_user_id=followed_user.id, follower_id=follower_user.id)[0]
+        ur.save()
+
+def add_user(username, password, email, profile):
+    user = User.objects.get_or_create(email=email)[0]
+
+    user.username = username
+    user.set_password(password)
+    user.save()
+
+    add_profile(user, **profile)
+
+    return user
 
 if __name__ == '__main__':
     populate()

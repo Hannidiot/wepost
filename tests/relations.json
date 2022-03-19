@@ -1,0 +1,15 @@
+[
+    {
+        "followed": "test_poster",
+        "followers": [
+            "test_viewer",
+            "test_commentor"
+        ]
+    },
+    {
+        "followed": "test_commentor",
+        "followers": [
+            "test_viewer"
+        ]
+    }
+]
