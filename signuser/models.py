@@ -13,7 +13,7 @@ class UserProfile(models.Model):
         default=1
     )
     birthday = models.DateField(blank=True, default=datetime(1970, 1, 1))
-    header_img = models.ImageField(upload_to=eu_header_img, default='/images/logo.jpg', blank=True, null=True)
+    header_img = models.ImageField(upload_to=eu_header_img, default='/images/avatar.svg', blank=True, null=True)
     followers = models.IntegerField(default=0)
     following = models.IntegerField(default=0)
     posts = models.IntegerField(default=0)

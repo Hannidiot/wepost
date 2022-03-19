@@ -1,14 +1,11 @@
 function load_albums() {
     $.ajax({
-        url: "{% url 'vali' %}",
-        type = "POST",
-        data = {
-
-        },
+        url: "/wepost/explore/albums/",
+        type: "get",
         // on success
         success: function (response) {
             // update html
-            $('#album').html(response)
+            $("#album").html(response)
 
         },
         // on error
@@ -16,5 +13,5 @@ function load_albums() {
             // alert the error if any error occured
             console.log(response.responseJSON.errors)
         }
-    });
+    })
 }

@@ -6,6 +6,7 @@ __all__ = [
     'test',
     'trending_page',
     'explore_page',
+    'load_explore_page_albums'
     'post_detail_page',
     'post_edit',
     'post_create',

@@ -1,27 +1,33 @@
+{% load static %}
+
 {% for post in post_list %}
+<div class="col-md-4">
   <div class="card mb-4 shadow-sm">
     <div class="card-header">
-      <a class="media">
-        <img id="avatar-{{ post.user.username }}" src="{% static 'images/svg/avatar.svg' %}" class="img-avatar" alt="default avatar" />
+      <a class="media" href="#">
         <div class="media-body">
-          <span class="p-3">{{ post.user.username }}</span>
+          <img id="avatar-{{ post.user.username }}" class="img-avatar" src="{% static 'images/svg/avatar.svg' %}" class="img-avatar" alt="default avatar" />
+          <span class="p-1 text-uname align-middle">{{ post.user.username }}</span>
         </div>
       </a>
     </div>
 
     <a href="#">
-      <img src="{{ post.pictures }}"/>
+      <img src="{{ MEDIA_URL }}{{ post.picture }}" class="card-img" />
     </a>
 
     <div class="card-body">
-      <p class="card-text">{{ post.description }}</p>
+      <p class="card-text">{{ post.title }}</p>
       <div class="d-flex justify-content-between align-items-center">
-        <div class="btn-group">
-          <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-          <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-        </div>
         <small class="text-muted">9 mins</small>
+        <div>
+          <img src="{% static 'images/svg/eye-fill.svg' %}" class="img-icon" alt="views:"/>
+          123
+          <img src="{% static 'images/svg/eye-fill.svg' %}" class="img-icon" alt="views:"/>
+          234
+        </div>
       </div>
     </div>
   </div>
+</div>
 {% endfor %}

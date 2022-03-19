@@ -16,7 +16,7 @@
   {% comment %} <link href="{% static '/bootstrap-3.3.7-dist/css/bootstrap.css' %}" rel="stylesheet"> {% endcomment %}
 
   {% block scope_css_block %}
-  
+
   {% endblock scope_css_block %}
   <link href="{% static '/css/login.css' %}" rel="stylesheet">
   <link href="{% static '/css/email.css' %}" rel="stylesheet">
@@ -39,9 +39,8 @@
   <script src="{% static 'js/bootstrap.bundle.min.js' %}" integrity="sha384-zDnhMsjVZfS3hiP7oCBRmfjkQC4fzxVxFhBx8Hkz2aZX8gEvA/jsP3eXRCvzTofP" crossorigin="anonymous"></script>
   <script src="{% static 'js/feather.min.js' %}"></script>
   <script src="{% static 'js/dashboard.js' %}"></script>
-  {% comment %} <script src="{% static '/jquery-3.6.0/jquery-3.6.0.js' %}"></script> {% endcomment %}
+  <script src="{% static '/jquery-3.6.0/jquery-3.6.0.js' %}"></script>
   {% comment %} <script src="{% static '/bootstrap-3.3.7-dist/js/bootstrap.js' %}"></script> {% endcomment %}
-  {% block scope_script_block %}
-  {% endblock scope_script_block %}
+  {% block scope_script_block %}{% endblock scope_script_block %}
 </body>
 </html>
