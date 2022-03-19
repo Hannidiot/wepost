@@ -7,7 +7,7 @@ urlpatterns = [
     path("headerimg/", views.views_signuser_header_img, name="views_signuser_headerimg"),
 
     path('<user_id>/', views.user_profile, name='user_profile'),
-    path('<user_id>/avatar', views),
+    # path('<user_id>/avatar', views),
     path('<user_id>/follow/', views.follow, name='follow'),
     path('<user_id>/unfollow/', views.unfollow, name='unfollow'),
 ]

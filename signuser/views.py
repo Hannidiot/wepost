@@ -14,7 +14,9 @@ def user_profile(request: HttpRequest, user_id):
         if user_form.is_valid():
 
             user_form.save()
-        else: print(user_form.errors)
+        else: 
+            print(user_form.errors)
+
     return render(request, "account/author_profile.html")
 
 

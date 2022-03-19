@@ -7,7 +7,7 @@
 {% block body_block %}
 <div class="container" id="profile_content">
   <div class="panel">
-    <img src="/media/{{ request.user.userprofile.header_img }}" alt="..." class="img-circle" id="header_img_show" >
+    <img src="{{ MEDIA_URL }} {{ request.user.userprofile.header_img }}" alt="..." class="img-circle" id="header_img_show" >
     <label class="label-info"><h2>Head image</h2></label>
     <form class="form-text col-lg-12" method="POST" action="{% url 'signuser:views_signuser_headerimg' %}" enctype="multipart/form-data">
       {% csrf_token %}
@@ -28,7 +28,7 @@
   </div>
 
   <div>
-      <form action="{% url 'signuser:user_profile' %}" method="post">
+      <form action="{% url 'signuser:user_profile' user.id %}" method="post">
           {% csrf_token %}
           <tr class="table-info">
               <td><input type="text" name="username"  id="username" readonly value="{{request.user.username}}"></td>
