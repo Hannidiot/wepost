@@ -28,7 +28,7 @@
   </div>
 
   <div>
-      <form action="{% url 'signuser:views_signuser_profile' %}" method="post">
+      <form action="{% url 'signuser:user_profile' %}" method="post">
           {% csrf_token %}
           <tr class="table-info">
               <td><input type="text" name="username"  id="username" readonly value="{{request.user.username}}"></td>

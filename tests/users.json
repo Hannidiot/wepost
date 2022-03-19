@@ -2,16 +2,28 @@
     {
         "username": "test_viewer",
         "password": "test",
-        "email": "viewer@test.com"
+        "email": "viewer@test.com",
+        "profile": {
+            "intro": "Sint sunt elit enim culpa velit commodo amet aliqua sunt consectetur culpa.",
+            "gender": 3
+        }
     },
     {
         "username": "test_poster",
         "password": "test",
-        "email": "poster@test.com"
+        "email": "poster@test.com",
+        "profile": {
+            "intro": "Laboris aliquip eu ex do incididunt esse labore fugiat ipsum aute enim commodo ullamco.",
+            "gender": 1
+        }
     },
     {
         "username": "test_commentor",
         "password": "test",
-        "email": "commentor@test.com"
+        "email": "commentor@test.com",
+        "profile": {
+            "intro": "Magna mollit magna velit minim aliquip officia amet amet et ipsum.",
+            "gender": 2
+        }
     }
 ]
