@@ -1,10 +1,9 @@
-from django.http import HttpRequest, HttpResponse
+from django.http import HttpRequest, JsonResponse
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 
 
-from wepost_main.utils import JsonResponse
 from wepost_main.models import *
 from wepost_main.forms import *
 

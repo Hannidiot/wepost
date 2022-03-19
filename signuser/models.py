@@ -15,6 +15,7 @@ class UserProfile(models.Model):
     birthday = models.DateField(blank=True, default=datetime(1970, 1, 1))
     header_img = models.ImageField(upload_to=eu_header_img, default='/images/logo.jpg', blank=True, null=True)
     followers = models.IntegerField(default=0)
+    following = models.IntegerField(default=0)
     posts = models.IntegerField(default=0)
 
 

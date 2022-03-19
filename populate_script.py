@@ -98,6 +98,14 @@ def add_user_relation(followed, followers):
         ur = UserRelation.objects.get_or_create(followed_user_id=followed_user.id, follower_id=follower_user.id)[0]
         ur.save()
 
+        up = UserProfile.objects.get(user_id=followed_user.id)
+        up.followers += 1
+        up.save()
+
+        up = UserProfile.objects.get(user_id=follower_user.id)
+        up.following += 1
+        up.save()
+
 def add_user(username, password, email, profile):
     user = User.objects.get_or_create(email=email)[0]
 
