@@ -7,6 +7,7 @@ from signuser.models import UserRelation
 
 from wepost_main.models import *
 from wepost_main.forms import *
+from wepost_main.utils import ajax_login_required
 
 
 def post_detail_page(request: HttpRequest, post_id):
@@ -82,7 +83,7 @@ def post_delete(request: HttpRequest, post_id):
     return redirect(reverse("wepost_main:explore"))
 
 
-@login_required
+@ajax_login_required
 def like(request: HttpRequest, post_id):
     if request.method == 'POST':
         post = Post.objects.get(id=post_id)
@@ -103,7 +104,7 @@ def like(request: HttpRequest, post_id):
     return redirect(reverse("wepost_main:explore"))
 
 
-@login_required
+@ajax_login_required
 def unlike(request: HttpRequest, post_id):
     if request.method == 'POST':
         post = Post.objects.get(id=post_id)
@@ -132,7 +133,7 @@ def get_comments(request: HttpRequest, post_id):
     return render(request, "components/comment_list.html", context)
 
 
-@login_required
+@ajax_login_required
 def add_comment(request: HttpRequest, post_id):
     if request.method == 'POST':
         post = Post.objects.get(id=post_id)
@@ -152,7 +153,7 @@ def add_comment(request: HttpRequest, post_id):
 
 
 
-@login_required
+@ajax_login_required
 def delete_comment(request: HttpRequest, post_id, comment_id):
     if request.method == 'POST':
         comment = Comment.objects.get(id=comment_id)
