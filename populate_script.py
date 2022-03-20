@@ -35,8 +35,8 @@ def populate():
     for post in posts:
         add_post(**post)
 
-    for like in likes:
-        add_like(**like)
+    # for like in likes:
+    #     add_like(**like)
 
     for comment in comments:
         add_comment(**comment)
@@ -82,11 +82,16 @@ def add_comment(username, post_title, content):
     return comment
 
 
-def add_profile(user, intro, gender, birthday=datetime(1970, 1, 1)):
+def add_profile(user, intro, gender, birthday=datetime(1970, 1, 1), header_img=None):
     up = UserProfile.objects.get_or_create(user_id=user.id)[0]
     up.intro = intro
     up.gender = gender
     up.birthday = birthday
+    if header_img:
+        up.header_img = SimpleUploadedFile(
+            name=header_img,
+            content=open(os.path.join(IMAGE_DIR, header_img), 'rb').read()
+        )
     up.save()
     return up
 
@@ -97,6 +102,14 @@ def add_user_relation(followed, followers):
         follower_user = User.objects.get(username=follower)
         ur = UserRelation.objects.get_or_create(followed_user_id=followed_user.id, follower_id=follower_user.id)[0]
         ur.save()
+
+        up = UserProfile.objects.get(user_id=followed_user.id)
+        up.followers += 1
+        up.save()
+
+        up = UserProfile.objects.get(user_id=follower_user.id)
+        up.following += 1
+        up.save()
 
 def add_user(username, password, email, profile):
     user = User.objects.get_or_create(email=email)[0]

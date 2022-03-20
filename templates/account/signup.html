@@ -1,54 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Wepost here</title>
-    {% include 'header_css.html' %}
+{% extends 'base.html' %}
+{% load static %}
 
-</head>
-<body id="body">
-{% include 'navigation.html' %}
-    <div class="container">
-    <div class="row">
-        <div class="col-md-offset-3 col-md-6">
-            <form class="form-horizontal" method="POST" action="{% url 'account_signup' %}">
-                {% csrf_token %}
-                {{ form.errors }}
-                <span class="heading">Wepost Register</span>
-                <div class="form-group">
-                    <div class="col-lg-11">
-                        <input type="text" name="username" class="form-control " id="id_username" placeholder="account">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-lg-11">
-                        <input type="email" name="email1" class="form-control " id="id_email" placeholder="email again">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-lg-11">
-                        <input type="email" name="email2" class="form-control " id="id_email2" placeholder="email again">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-lg-11">
-                        <input type="password" name="password1" class="form-control " id="id_password1" placeholder="password">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-lg-11">
-                        <input type="password" name="password2" class="form-control " id="id_password2" placeholder="password again">
-                    </div>
-                </div>
-                <a href="{% url 'wepost_main:index' %}">Back</a>
-                <button type="submit" class="btn btn-default">Register</button>
-            </form>
-        </div>
-    </div>
+{% block scope_css_block %}
+  <link rel="stylesheet" href="{% static 'css/form.css' %}" />
+{% endblock scope_css_block %}
+
+{% block body_block %}
+<div class="text-center">
+  <form class="form-signin" method="post">
+    {% csrf_token %}
+    {{ form.errors }}
+    <img class="mb-4" src="{% static 'images/logo.png' %}" alt="" width="72" height="72">
+    <h1 class="h3 mb-3 font-weight-normal">WePost SignUp</h1>
+    
+    <label for="username" class="sr-only">Username</label>
+    <input type="text" name="username" class="form-control " id="id_username" placeholder="account">
+    
+    <label for="email1" class="sr-only">Email</label>
+    <input type="email" name="email1" class="form-control " id="id_email" placeholder="email">
+
+    <label for="email2" class="sr-only">Email Again</label>
+    <input type="email" name="email2" class="form-control " id="id_email2" placeholder="email again">
+
+    <label for="password1" class="sr-only">Password</label>
+    <input type="password" name="password1" class="form-control " id="id_password1" placeholder="password">
+
+    <label for="password2" class="sr-only">Password Again</label>
+    <input type="password" name="password2" class="form-control " id="id_password2" placeholder="password again">
+    
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+  </form>
 </div>
-
-{% include 'footer_js.html' %}
-</body>
-</html>
-
+{% endblock body_block %}
 

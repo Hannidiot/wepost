@@ -1,10 +1,29 @@
 {% extends 'base.html' %}
-{% load album_pages %}
+{% load static %}
+
+{% block scope_css_block %}
+  <link rel="stylesheet" href="{% static 'css/main_page.css' %}" />
+{% endblock scope_css_block %}
 
 {% block title_block %}
   Explore
 {% endblock title_block %}
 
 {% block body_block %}
-  {% get_explore_albums %}
+<div class="album py-5 bg-light">
+  <div class="container">
+    <div class="row" id="album">
+      
+    </div>
+  </div>
+</div>
 {% endblock body_block %}
+
+{% block scope_script_block %}
+  <script src="{% static 'js/main_page.js' %}"></script>
+  <script>
+    $(document).ready(function () {
+      load_albums();
+    })
+  </script>
+{% endblock scope_script_block %}

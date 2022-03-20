@@ -1,9 +1,55 @@
-#profile_content #header_img_show{
-    height: 200px;
-    width:200px;
+* {box-sizing: border-box;}
+
+body {
+    font-family: Arial;
+    padding: 10px;
+    background: #f1f1f1;
+    }
+
+.profile-avatar {
+    background-color: #aaa;
+    width: 100%;
+    padding: 20px;
+    }
+
+.card {
+    background-color: white;
+    margin-top: 20px;
+    margin-left: 60px;
+    margin-right: 60px;
+    box-shadow: 0 0 6px 0 rgba(0,0,0,0.20);
+    border-radius: 10px;
+    color: #333333;
 }
 
-#img_label{
-    margin-left: 60px;
-    border: 1px solid #afd9ee;
+.row{
+    display:flex;
+    flex-wrap: wrap;
+}
+
+.left{
+    flex:0%;
+    padding:20px;
+}
+
+.right{
+    flex:70%;
+    padding: 20px;
+}
+
+.navbar {
+    display: flex;
+    background-color: #333;
+}
+
+.navbar a {
+    color: white;
+    padding: 14px 20px;
+    text-decoration: none;
+    text-align: center;
+}
+
+.navbar a:hover {
+    background-color: #ddd;
+    color: black;
 }

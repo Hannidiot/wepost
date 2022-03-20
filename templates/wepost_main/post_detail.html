@@ -1,1 +1,90 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block title_block %}
+    Post
+{% endblock title_block %}
+
+{% block scope_css_block %}
+  <link rel="stylesheet" href="{% static 'css/post_detail.css' %}" />
+{% endblock scope_css_block %}
+
+{% block body_block %}
+<div class="container">
+  <div class="row mt-3" id="post_block">
+    <div class="col-lg-6 col-sm-12 align-items-center" >
+        <img src="{{ MEDIA_URL }}{{ post.picture }}" id="post_image" class="img-fluid img-thumbnail" >
+    </div>
+    <div class="col-lg-6 col-sm-12" >
+      <h2>{{ post.title }}</h2>
+      <div class="row">
+        <span class="col-sm-8">
+          <img class="rounded-circle img-fluid img-avatar" src="{{ MEDIA_URL }}images/head_img1.jpg" >
+          <span class="ml-2 align-middle" id="top_input">{{ post.user.username }}</span>
+        </span>
+        <span class="float-right col-sm-4">
+
+          {% if is_followed %}
+            <button class="btn btn-secondary float-right" id="btn_follow" onclick="unfollow({{ post.user.id }})">Following</button>
+          {% else %}
+            <button class="btn btn-primary float-right" id="btn_follow" onclick="follow({{ post.user.id }})">Follow</button>
+          {% endif %}
+          
+        </span>
+      </div>
+      <div class="my-2" id="description">
+          <span>
+            {{ post.description }}
+          </span>
+      </div>
+      <div class="align-self-end">
+        <span>
+          <img src="{% static 'images/svg/eye-fill.svg' %}" class="img-icon" alt="views:"/>
+          <span>{{ post.views }}</span>
+
+          {% if is_liked %}
+          <img src="{% static 'images/svg/like-fill.svg' %}" id="like_img_{{ post.id }}" 
+                class="img-icon" alt="likes:" onclick="unlike({{ post.id }})"/>
+          {% else %}
+          <img src="{% static 'images/svg/like.svg' %}" id="like_img_{{ post.id }}" 
+                class="img-icon" alt="likes:" onclick="like({{ post.id }})"/>
+          {% endif %}
+
+          <span id="like_cnt_{{ post.id }}" class="ml-1">{{ post.likes }}</span>
+        </span>
+        <span class="float-right">
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div id="comment_block" class="card mt-3">
+    <h5 class="card-header">Comments({{ post.comments }})</h5>
+    <div class="card-body container" id="comment_list">
+
+    </div>
+    <div class="card-body">
+      <div class="input-group">
+        {% csrf_token %}
+        <textarea class="form-control" id="content"></textarea>
+        <input type="hidden" name="post_id" id="post_id" value="{{ post.id }}" />
+        <div class="input-group-append">
+          <button type="button" class="btn btn-outline-secondary" type="submit" onclick="add_comment()">
+            Send comment
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock body_block %}
+
+{% block scope_script_block %}
+  <script src="{% static 'js/post_detail.js' %}"></script>
+  <script>
+    $(document).ready(function() {
+      var post_id = $("#post_id").val();
+      load_comments(post_id);
+    })
+  </script>
+{% endblock scope_script_block %}

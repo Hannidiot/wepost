@@ -1,0 +1,34 @@
+{% load static %}
+
+{% for post in post_list %}
+<div class="card mb-2">
+  <div class="row">
+      <div class="col-sm-4">
+        <img class="img-fluid img-thumbnail" src="{{ MEDIA_URL }}{{ post.picture }}" />
+      </div>
+      <div class="col-sm-8">
+        <a href="{% url 'wepost_main:post_detail' post.id %}">
+          <h3 class="my-2">{{ post.title }}</h3>
+        </a>
+        <div>{{ post.description }}</div>
+        <div class="float-right mr-5">
+          <span>
+            <img src="{% static 'images/svg/eye-fill.svg' %}" class="img-icon" alt="views:"/>
+            {{ post.views }}
+          </span>
+          <span class="ml-1">
+            {% if post.is_liked %}
+              <img src="{% static 'images/svg/like-fill.svg' %}" id="like_img_{{ post.id }}" 
+                  class="img-icon" alt="likes:" onclick="unlike({{ post.id }})"/>
+              <span id="like_cnt_{{ post.id }}">{{ post.likes }}</span>
+            {% else %}
+              <img src="{% static 'images/svg/like.svg' %}" id="like_img_{{ post.id }}" 
+                  class="img-icon" alt="likes:" onclick="like({{ post.id }})"/>
+              <span id="like_cnt_{{ post.id }}">{{ post.likes }}</span>
+            {% endif %}
+          </span>
+        </div>
+      </div>
+  </div>
+</div>
+{% endfor %}

@@ -1,21 +1,30 @@
-from django.http import HttpRequest, HttpResponse
+from django.http import HttpRequest, JsonResponse
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
+from signuser.models import UserRelation
 
 
-from wepost_main.utils import JsonResponse
 from wepost_main.models import *
 from wepost_main.forms import *
 
 
 def post_detail_page(request: HttpRequest, post_id):
+    user = request.user
     post = Post.objects.get(id=post_id)
     comments = Comment.objects.filter(post_id=post.id).order_by('-comment_time')
+    post.views += 1
+    post.save()
     context = {
         'post': post,
         'comments': comments
     }
+
+    if user != "AnonymousUser":
+        ur = UserRelation.objects.filter(followed_user_id=post.user_id, follower_id=user.id)
+        like = Like.objects.filter(post_id=post.id, user_id=user.id)
+        context["is_followed"] = len(ur) != 0
+        context["is_liked"] = len(like) != 0
     return render(request, "wepost_main/post_detail.html", context)
 
 
@@ -112,6 +121,15 @@ def unlike(request: HttpRequest, post_id):
         return JsonResponse({"status": "success", "msg": ""})
 
     return redirect(reverse("index"))
+
+
+def get_comments(request: HttpRequest, post_id):
+    comments = Comment.objects.filter(post_id=post_id).select_related("user__userprofile")
+    context = {
+        "comments": comments
+    }
+    
+    return render(request, "components/comment_list.html", context)
 
 
 @login_required

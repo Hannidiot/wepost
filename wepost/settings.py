@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.github',
+    'bootstrap4'
 ]
 
 AUTHENTICATION_BACKENDS = (
@@ -55,8 +56,8 @@ AUTHENTICATION_BACKENDS = (
 
 SITE_ID = 1
 
-LOGIN_REDIRECT_URL = '/'
-ACCOUNT_LOGOUT_REDIRECT_URL="/"
+LOGIN_REDIRECT_URL = '/wepost/explore/'
+ACCOUNT_LOGOUT_REDIRECT_URL="/wepost/explore/"
 ACCOUNT_USERNAME_MIN_LENGTH = 4
 #send email to login
 ACCOUNT_AUTHENTICATION_METHOD="username_email"
@@ -166,7 +167,6 @@ STATICFILES_DIRS = [
 ]
 
 MEDIA_ROOT = MEDIA_DIR
-
 MEDIA_URL = '/media/'
 
 
