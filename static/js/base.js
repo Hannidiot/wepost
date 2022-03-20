@@ -62,7 +62,7 @@ function unlike(post_id) {
 function follow(user_id) {
     var token = $("[name='csrfmiddlewaretoken']").val();
     $.ajax({
-        url: "/accounts/" + post_id + "/follow/",
+        url: "/accounts/" + user_id + "/follow/",
         type: "post",
         data: {
             csrfmiddlewaretoken: token
@@ -84,10 +84,10 @@ function follow(user_id) {
     })
 }
 
-function follow(user_id) {
+function unfollow(user_id) {
     var token = $("[name='csrfmiddlewaretoken']").val();
     $.ajax({
-        url: "/accounts/" + post_id + "/unfollow/",
+        url: "/accounts/" + user_id + "/unfollow/",
         type: "post",
         data: {
             csrfmiddlewaretoken: token

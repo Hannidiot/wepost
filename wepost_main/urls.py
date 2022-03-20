@@ -4,11 +4,9 @@ import wepost_main.views as views
 app_name = 'wepost_main'
 
 urlpatterns = [
-    path('test/', views.test, name='test'),
-    path('home/', views.trending_page, name='trending'),
+    path('trending/', views.trending_page, name='trending'),
     path('explore/', views.explore_page, name='explore'),
     path('explore/albums/', views.load_explore_page_albums, name='explore_albums'),
-    path('index/', views.sample_view.index, name='index'),
 
     path('post/create/', views.post_create, name='post_create'),
     path('post/<post_id>/', views.post_detail_page, name='post_detail'),

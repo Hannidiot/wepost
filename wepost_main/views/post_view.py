@@ -2,6 +2,7 @@ from django.http import HttpRequest, JsonResponse
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
+from signuser.models import UserRelation
 
 
 from wepost_main.models import *
@@ -9,12 +10,19 @@ from wepost_main.forms import *
 
 
 def post_detail_page(request: HttpRequest, post_id):
+    user = request.user
     post = Post.objects.get(id=post_id)
     comments = Comment.objects.filter(post_id=post.id).order_by('-comment_time')
     context = {
         'post': post,
         'comments': comments
     }
+
+    if user != "AnonymousUser":
+        ur = UserRelation.objects.filter(followed_user_id=post.user_id, follower_id=user.id)
+        like = Like.objects.filter(post_id=post.id, user_id=user.id)
+        context["is_followed"] = len(ur) != 0
+        context["is_liked"] = len(like) != 0
     return render(request, "wepost_main/post_detail.html", context)
 
 

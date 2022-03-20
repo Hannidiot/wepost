@@ -23,7 +23,13 @@
           <span class="ml-2 align-middle" id="top_input">{{ post.user.username }}</span>
         </span>
         <span class="float-right col-sm-4">
-          <button class="btn btn-primary float-right" id="btn_follow" onclick="follow({{ post.user.id }})">Follow</button>
+
+          {% if is_followed %}
+            <button class="btn btn-secondary float-right" id="btn_follow" onclick="unfollow({{ post.user.id }})">Following</button>
+          {% else %}
+            <button class="btn btn-primary float-right" id="btn_follow" onclick="follow({{ post.user.id }})">Follow</button>
+          {% endif %}
+          
         </span>
       </div>
       <div class="my-2" id="description">
@@ -33,8 +39,18 @@
       </div>
       <div class="align-self-end">
         <span>
-          <span>view: {{ post.views }}</span>
-          <span class="ml-1">like: {{ post.likes }}</span>
+          <img src="{% static 'images/svg/eye-fill.svg' %}" class="img-icon" alt="views:"/>
+          <span>{{ post.views }}</span>
+
+          {% if is_liked %}
+          <img src="{% static 'images/svg/like-fill.svg' %}" id="like_img_{{ post.id }}" 
+                class="img-icon" alt="likes:" onclick="unlike({{ post.id }})"/>
+          {% else %}
+          <img src="{% static 'images/svg/like.svg' %}" id="like_img_{{ post.id }}" 
+                class="img-icon" alt="likes:" onclick="like({{ post.id }})"/>
+          {% endif %}
+
+          <span id="like_cnt_{{ post.id }}" class="ml-1">{{ post.likes }}</span>
         </span>
         <span class="float-right">
         </span>

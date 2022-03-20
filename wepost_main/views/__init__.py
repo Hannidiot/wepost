@@ -1,4 +1,4 @@
-from .sample_view import test
+from .index_view import test
 from .album_view import *
 from .post_view import *
 
