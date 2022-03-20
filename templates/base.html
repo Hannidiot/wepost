@@ -10,22 +10,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="Minhao, Hanliang, Wenjing, Zeyu, Xiaohan">
+  <link rel="icon" href="{% static 'images/favicon.png' %}">
 
   {% comment %} todo: remove here {% endcomment %}
   <meta http-equiv="cache-control" content="no-cache" />
 
   <!-- Bootstrap core CSS -->
   <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-  {% comment %} <link href="{% static '/bootstrap-3.3.7-dist/css/bootstrap.css' %}" rel="stylesheet"> {% endcomment %}
 
   {% block scope_css_block %}
-
   {% endblock scope_css_block %}
   <link rel="stylesheet" href="{% static 'css/base.css' %}" />
-  <link href="{% static '/css/login.css' %}" rel="stylesheet">
-  <link href="{% static '/css/email.css' %}" rel="stylesheet">
-  <link href="{% static '/css/signup.css' %}" rel="stylesheet">
-  <link href="{% static '/css/profile.css' %}" rel="stylesheet">
 </head>
 <body>
   {% block nav_block %}

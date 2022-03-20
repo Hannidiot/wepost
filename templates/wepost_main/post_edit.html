@@ -11,7 +11,7 @@
   <form role="form" method="post">
     {% csrf_token %}
     {% bootstrap_form form %}
-    {% buttons submit='OK' reset="Cancel" %}{% endbuttons %}
+    {% buttons submit='OK' reset="Reset" %}{% endbuttons %}
   </form>
 </div>
 {% endblock body_block %}
