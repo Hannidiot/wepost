@@ -25,16 +25,15 @@ def user_profile_content(request: HttpRequest, user_id, type):
 
     elif type == "followers":
         users = UserRelation.objects.select_related("follower", "follower__userprofile").filter(followed_user_id=user_id)
-        context['profile_users'] = users
-        return render(request, "account/components/user_card_list.html", context)
+        context['followers'] = users
+        return render(request, "account/components/follower_card_list.html", context)
 
     elif type == "following":
         users = UserRelation.objects.select_related("followed_user", "followed_user__userprofile").filter(follower_id=user_id)
-        context['profile_users'] = users
-        return render(request, "account/components/user_card_list.html", context)
+        context['followeds'] = users
+        return render(request, "account/components/followed_card_list.html", context)
 
 
-@login_required
 def user_profile(request: HttpRequest, user_id):
     profile_user = User.objects.select_related("userprofile").get(id=user_id)
 

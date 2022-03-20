@@ -7,8 +7,10 @@
     <div class="card-header">
       <a class="media" href="#">
         <div class="media-body">
-          <img id="avatar-{{ post.user.username }}" class="img-avatar" src="{% static 'images/svg/avatar.svg' %}" class="img-avatar" alt="default avatar" />
-          <span class="p-1 text-uname align-middle">{{ post.user.username }}</span>
+          <a href="{% url 'signuser:user_profile' post.user.id %}">
+            <img id="avatar-{{ post.user.username }}" class="img-avatar" src="{{ MEDIA_URL }}{{ post.user.userprofile.header_img }}" class="img-avatar" alt="default avatar" />
+            <span class="p-1 text-uname align-middle">{{ post.user.username }}</span>
+          </a>
         </div>
       </a>
     </div>
