@@ -5,6 +5,7 @@ app_name = 'wepost_main'
 
 urlpatterns = [
     path('trending/', views.trending_page, name='trending'),
+    path('trending/most_liked/', views.load_most_liked_albums, name="most_liked"),
     path('explore/', views.explore_page, name='explore'),
     path('explore/albums/', views.load_explore_page_albums, name='explore_albums'),
 

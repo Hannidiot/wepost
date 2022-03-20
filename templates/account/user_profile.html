@@ -1,181 +1,63 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <style>
-    * {box-sizing: border-box;}
-    body {
-        font-family: Arial;
-        padding: 10px;
-        background: #f1f1f1;
-        }
+{% extends 'base.html' %}
+{% load static %}
 
-    .fakeimg {
-        background-color: #aaa;
-        width: 100%;
-        padding: 20px;
-        }
+{% block scope_css_block %}
+  {% comment %} <link rel="stylesheet" href="{% static 'css/profile.css' %}" /> {% endcomment %}
+{% endblock scope_css_block %}
 
-    .card {
-    background-color: white;
-    margin-top: 20px;
-    margin-left: 60px;
-    margin-right: 60px;
-    box-shadow: 0 0 6px 0 rgba(0,0,0,0.20);
-	border-radius: 10px;
-	color: #333333;
-    }
-
-    .footer {
-    padding: 20px;
-    text-align: center;
-    background: white;
-    margin-top: 20px;
-    }
-
-    .row{
-        display:flex;
-        flex-wrap: wrap;
-    }
-
-    .left{
-        flex:0%;
-        padding:20px;
-    }
-
-    .right{
-        flex:70%;
-        padding: 20px;
-    }
-
-    .navbar {
-        display: flex;
-        background-color: #333;
-    }
-
-    .navbar a {
-        color: white;
-        padding: 14px 20px;
-        text-decoration: none;
-        text-align: center;
-    }
-
-    .navbar a:hover {
-        background-color: #ddd;
-        color: black;
-    }
-
-    .pagination {
-    display: inline-block;
-    }
-
-    .pagination a {
-    color: black;
-    float: left;
-    padding: 8px 16px;
-    text-decoration: none;
-    border: 1px solid #ddd;
-    }
-
-    .pagination a.active {
-    background-color: #4CAF50;
-    color: white;
-    border: 1px solid #4CAF50;
-    }
-
-    .pagination a:hover:not(.active) {background-color: #ddd;}
-
-    .pagination a:first-child {
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
-    }
-
-    .pagination a:last-child {
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
-    }
-
-    .center {
-    text-align: center;
-    }
-
-    </style>
-
-</head>
-
-<body>
-    <div class="card">
-        <div class="row">
-            <div class="left">
-                <div class="fakeimg" style="height:200px;">picture</div>
-            </div>
-            <div class="right">
-                <h3>Username</h3>
-            </div>
-        </div>
+{% block body_block %}
+<div class="container mt-2">
+  <div class="card">
+    <div class="row card-body">
+      <div class="col-sm-4">
+        <img src="{{ MEDIA_URL }}{{ profile_user.userprofile.header_img }}" alt="avatar" />
+      </div>
+      <div class="col-sm-6">
+        <h2>{{ profile_user.username }}</h2>
+        <small>Gender: {{ profile_user.userprofile.get_gender_display }}</small>
+        <br />
+        <small>Birthday: {{ profile_user.userprofile.birthday }}</small>
+        <br />
+        <p>Intro: {{ profile_user.userprofile.intro }}</p>
+      </div>
     </div>
-
-    <div class="card">
-        <div class="navbar">
-            <a href="user_profile.html">Post</a>
-            <a href="user_profile_likes.html">Likes</a>
-            <a href="user_profile_following.html">Following</a>
-            <a href="user_profile_followers.html">Followers</a>
-        </div>
-
-        <div class="card">
-            <div class="row">
-                <div class="left">
-                    <div class="fakeimg" style="height:200px;">picture</div>
-                </div>
-                <div class="right">
-                    <h3>Title</h3>
-                    <p>Description</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="row">
-                <div class="left">
-                    <div class="fakeimg" style="height:200px;">picture</div>
-                </div>
-                <div class="right">
-                    <h3>Title</h3>
-                    <p>Description</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="row">
-                <div class="left">
-                    <div class="fakeimg" style="height:200px;">picture</div>
-                </div>
-                <div class="right">
-                    <h3>Title</h3>
-                    <p>Description</p>
-                </div>
-            </div>
-        </div>
-        <p></p>
-
-        <div class="center">
-            <div class="pagination">
-                <a href="#">&lt;</a>
-                <a href="#">1</a>
-                <a class="active" href="#">2</a>
-                <a href="#">3</a>
-                <a href="#">4</a>
-                <a href="#">5</a>
-                <a href="#">6</a>
-                <a href="#">&gt;</a>
-            </div>
-        </div>
-
-        <div class="footer"></div>
+  </div>
+  
+  <div class="card mt-4">
+    <div class="card-header">
+      <ul class="nav nav-pills">
+          <li class="nav-item">
+            <label id="posts_page" class="nav-link active" onclick="load_content({{profile_user.id}}, 'posts')">
+              Post({{ profile_user.userprofile.posts }})
+            </label>
+          </li>
+          <li class="nav-item">
+            <label id="following_page" class="nav-link" onclick="load_content({{profile_user.id}}, 'following')">
+              Following({{ profile_user.userprofile.following }})
+            </label>
+          </li>
+          <li class="nav-item">
+            <label id="followers_page" class="nav-link" onclick="load_content({{profile_user.id}}, 'followers')">
+              Followers({{ profile_user.userprofile.followers }})
+            </label>
+          </li>
+      </ul>
     </div>
+    {% csrf_token %}
+    <div class="card-body">
+      <div id="content">
+        
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock body_block %}
 
-
-</body>
-
-</html>
+{% block scope_script_block %}
+  <script src="{% static 'js/user_profile.js' %}"></script>
+  <script>
+    $(document).ready(function() {
+      load_content({{profile_user.id}}, 'posts');
+    })
+  </script>
+{% endblock scope_script_block %}

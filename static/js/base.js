@@ -19,7 +19,7 @@ function like(post_id) {
         },
         success: function (response) {
             if (response.status == "success") {
-                $("#like_img_" + post_id).attr("src", "/static/images/svg/unlike.svg");
+                $("#like_img_" + post_id).attr("src", "/static/images/svg/like-fill.svg");
                 $("#like_img_" + post_id).attr("onclick", "unlike(" + post_id + ")");
                 var like_cnt = parseInt($("#like_cnt_" + post_id).text());
                 $("#like_cnt_" + post_id).text(like_cnt + 1);

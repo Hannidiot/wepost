@@ -28,9 +28,15 @@
             {{ post.views }}
           </span>
           <span class="ml-1">
-            <img src="{% static 'images/svg/like.svg' %}" id="like_img_{{ post.id }}" 
-                class="img-icon" alt="likes:" onclick="like({{ post.id }})"/>
-            <span id="like_cnt_{{ post.id }}">{{ post.likes }}</span>
+            {% if post.is_liked %}
+              <img src="{% static 'images/svg/like-fill.svg' %}" id="like_img_{{ post.id }}" 
+                  class="img-icon" alt="likes:" onclick="unlike({{ post.id }})"/>
+              <span id="like_cnt_{{ post.id }}">{{ post.likes }}</span>
+            {% else %}
+              <img src="{% static 'images/svg/like.svg' %}" id="like_img_{{ post.id }}" 
+                  class="img-icon" alt="likes:" onclick="like({{ post.id }})"/>
+              <span id="like_cnt_{{ post.id }}">{{ post.likes }}</span>
+            {% endif %}
           </span>
         </div>
       </div>

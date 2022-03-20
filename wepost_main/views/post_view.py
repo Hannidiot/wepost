@@ -13,6 +13,8 @@ def post_detail_page(request: HttpRequest, post_id):
     user = request.user
     post = Post.objects.get(id=post_id)
     comments = Comment.objects.filter(post_id=post.id).order_by('-comment_time')
+    post.views += 1
+    post.save()
     context = {
         'post': post,
         'comments': comments
