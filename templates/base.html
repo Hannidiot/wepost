@@ -11,6 +11,9 @@
   <meta name="description" content="">
   <meta name="author" content="Minhao, Hanliang, Wenjing, Zeyu, Xiaohan">
 
+  {% comment %} todo: remove here {% endcomment %}
+  <meta http-equiv="cache-control" content="no-cache" />
+
   <!-- Bootstrap core CSS -->
   <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
   {% comment %} <link href="{% static '/bootstrap-3.3.7-dist/css/bootstrap.css' %}" rel="stylesheet"> {% endcomment %}
@@ -18,6 +21,7 @@
   {% block scope_css_block %}
 
   {% endblock scope_css_block %}
+  <link rel="stylesheet" href="{% static 'css/base.css' %}" />
   <link href="{% static '/css/login.css' %}" rel="stylesheet">
   <link href="{% static '/css/email.css' %}" rel="stylesheet">
   <link href="{% static '/css/signup.css' %}" rel="stylesheet">
@@ -27,6 +31,12 @@
   {% block nav_block %}
     {% navbar %}
   {% endblock nav_block %}
+
+  <div class="container sticky-top">
+    <div class="row justify-content-center" id="alert_container">
+
+    </div>
+  </div>
 
   <main class="container-fluid">
     {% block body_block %}Place body content here!{% endblock body_block %}
@@ -40,6 +50,7 @@
   <script src="{% static 'js/feather.min.js' %}"></script>
   <script src="{% static 'js/dashboard.js' %}"></script>
   <script src="{% static '/jquery-3.6.0/jquery-3.6.0.js' %}"></script>
+  <script src="{% static 'js/base.js' %}"></script>
   {% comment %} <script src="{% static '/bootstrap-3.3.7-dist/js/bootstrap.js' %}"></script> {% endcomment %}
   {% block scope_script_block %}{% endblock scope_script_block %}
 </body>

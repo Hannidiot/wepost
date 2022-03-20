@@ -113,6 +113,15 @@ def unlike(request: HttpRequest, post_id):
     return redirect(reverse("index"))
 
 
+def get_comments(request: HttpRequest, post_id):
+    comments = Comment.objects.filter(post_id=post_id).select_related("user__userprofile")
+    context = {
+        "comments": comments
+    }
+    
+    return render(request, "components/comment_list.html", context)
+
+
 @login_required
 def add_comment(request: HttpRequest, post_id):
     if request.method == 'POST':

@@ -2,7 +2,7 @@ from django.http import HttpRequest, JsonResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 
-from .forms import UserForm
+from .forms import UserForm, UserProfileForm
 from signuser.models import *
 
 
@@ -18,6 +18,17 @@ def user_profile(request: HttpRequest, user_id):
             print(user_form.errors)
 
     return render(request, "account/author_profile.html")
+
+
+@login_required
+def user_profile_edit(request: HttpRequest, user_id):
+    user_profile = UserProfile.objects.get(user_id=user_id)
+    form = UserProfileForm(instance=user_profile)
+
+    if request.method == 'POST':
+        pass
+
+    return render(request, "account/user_profile_edit.html", {"form": form})
 
 
 @login_required

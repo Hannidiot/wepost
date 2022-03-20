@@ -10,4 +10,5 @@ urlpatterns = [
     # path('<user_id>/avatar', views),
     path('<user_id>/follow/', views.follow, name='follow'),
     path('<user_id>/unfollow/', views.unfollow, name='unfollow'),
+    path('<user_id>/edit/', views.user_profile_edit, name="edit_profile")
 ]

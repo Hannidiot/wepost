@@ -1,0 +1,24 @@
+{% load static %}
+
+<ul class="list-group">
+  {% for comment in comments %}
+  <li class="list-group-item my-2">
+    <div class="row">
+      <span class="col-sm-8">
+        <img class="rounded-circle img-fluid img-avatar" src="{{ MEDIA_URL }}{{ comment.user.userprofile.header_img }}" >
+        <span class="ml-2 align-middle">{{ comment.user.username }}</span>
+      </span>
+      <span class="col-sm-4">
+        <label class="text-center float-right">
+          {{ comment.comment_time }}
+        </label>
+      </span>
+    </div>
+    <div class="row mt-4">
+      <p class="col">
+        {{ comment.content }}
+      </p>
+    </div>
+  </li>
+  {% endfor %}
+</ul>

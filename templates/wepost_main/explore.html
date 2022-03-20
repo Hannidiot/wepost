@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 {% load static %}
-{% load album_pages %}
 
 {% block scope_css_block %}
   <link rel="stylesheet" href="{% static 'css/main_page.css' %}" />
@@ -11,7 +10,13 @@
 {% endblock title_block %}
 
 {% block body_block %}
-  {% get_explore_albums %}
+<div class="album py-5 bg-light">
+  <div class="container">
+    <div class="row" id="album">
+      
+    </div>
+  </div>
+</div>
 {% endblock body_block %}
 
 {% block scope_script_block %}

@@ -8,4 +8,4 @@ def index(requset):
 
 # test response
 def test(request: HttpRequest):
-    return render(request, 'wepost_main/test.html')
+    return render(request, 'wepost_main/post.html')

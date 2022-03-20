@@ -14,7 +14,8 @@
         "email": "poster@test.com",
         "profile": {
             "intro": "Laboris aliquip eu ex do incididunt esse labore fugiat ipsum aute enim commodo ullamco.",
-            "gender": 1
+            "gender": 1,
+            "header_img": "head_img.jpg"
         }
     },
     {

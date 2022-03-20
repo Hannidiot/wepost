@@ -1,12 +1,10 @@
-from django.http import HttpRequest, HttpResponse, JsonResponse
+from django.http import HttpRequest
 from django.shortcuts import render
-from django.core import serializers
 
-from signuser.models import UserProfile
 from wepost_main.models import *
 
 def trending_page(request: HttpRequest):
-    return render(request, 'base.html')
+    return render(request, 'wepost_main/trending.html')
 
 
 def explore_page(request: HttpRequest):
