@@ -1,5 +1,6 @@
 {% load static %}
 
+{% csrf_token %}
 {% for post in post_list %}
 <div class="col-md-4">
   <div class="card mb-4 shadow-sm">
@@ -27,8 +28,9 @@
             {{ post.views }}
           </span>
           <span class="ml-1">
-            <img src="{% static 'images/svg/like.svg' %}" class="img-icon" alt="views:"/>
-            {{ post.likes }}
+            <img src="{% static 'images/svg/like.svg' %}" id="like_img_{{ post.id }}" 
+                class="img-icon" alt="likes:" onclick="like({{ post.id }})"/>
+            <span id="like_cnt_{{ post.id }}">{{ post.likes }}</span>
           </span>
         </div>
       </div>

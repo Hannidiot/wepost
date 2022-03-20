@@ -11,10 +11,17 @@ def explore_page(request: HttpRequest):
     return render(request, 'wepost_main/explore.html')
 
 def load_explore_page_albums(request: HttpRequest):
-    posts = Post.objects.select_related('user').all()
+    user = request.user
+    print(user)
+    if user == "AnonymousUser":
+        posts = Like.objects.filter(user_id=user.id).select_related("user", "post").all()
+    else:
+        posts = Post.objects.select_related('user').all()
     context = {
         'post_list': posts
     }
+
+    print(context)
 
     return render(request, 'components/album_card_list.html', context)
 

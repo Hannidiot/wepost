@@ -35,8 +35,8 @@ def populate():
     for post in posts:
         add_post(**post)
 
-    for like in likes:
-        add_like(**like)
+    # for like in likes:
+    #     add_like(**like)
 
     for comment in comments:
         add_comment(**comment)
