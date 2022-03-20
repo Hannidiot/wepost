@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block scope_css_block %}
+  <link rel="stylesheet" href="{% static 'css/form.css' %}" />
+{% endblock scope_css_block %}
+
+{% block body_block %}
+<div class="text-center">
+  <form class="form-signin" method="post">
+    {% csrf_token %}
+    {{ form.errors }}
+    <img class="mb-4" src="{% static 'images/logo.png' %}" alt="" width="72" height="72">
+    <h1 class="h3 mb-3 font-weight-normal">WePost SignUp</h1>
+    
+    <label for="username" class="sr-only">Username</label>
+    <input type="text" name="username" class="form-control " id="id_username" placeholder="account">
+    
+    <label for="email1" class="sr-only">Email</label>
+    <input type="email" name="email1" class="form-control " id="id_email" placeholder="email">
+
+    <label for="email2" class="sr-only">Email Again</label>
+    <input type="email" name="email2" class="form-control " id="id_email2" placeholder="email again">
+
+    <label for="password1" class="sr-only">Password</label>
+    <input type="password" name="password1" class="form-control " id="id_password1" placeholder="password">
+
+    <label for="password2" class="sr-only">Password Again</label>
+    <input type="password" name="password2" class="form-control " id="id_password2" placeholder="password again">
+    
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+  </form>
+</div>
+{% endblock body_block %}
+

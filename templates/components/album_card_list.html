@@ -1,0 +1,46 @@
+{% load static %}
+
+{% csrf_token %}
+{% for post in post_list %}
+<div class="col-md-4">
+  <div class="card mb-4 shadow-sm">
+    <div class="card-header">
+      <a class="media" href="#">
+        <div class="media-body">
+          <img id="avatar-{{ post.user.username }}" class="img-avatar" src="{% static 'images/svg/avatar.svg' %}" class="img-avatar" alt="default avatar" />
+          <span class="p-1 text-uname align-middle">{{ post.user.username }}</span>
+        </div>
+      </a>
+    </div>
+
+    <a href="{% url 'wepost_main:post_detail' post.id %}">
+      <img src="{{ MEDIA_URL }}{{ post.picture }}" class="card-img" />
+    </a>
+
+    <div class="card-body">
+      <h5 class="card-text">{{ post.title }}</h5>
+      <p class="card-text text-truncate">{{ post.description }}</p>
+      <div class="d-flex justify-content-between align-items-center">
+        <small class="text-muted">{{ post.post_time }}</small>
+        <div>
+          <span>
+            <img src="{% static 'images/svg/eye-fill.svg' %}" class="img-icon" alt="views:"/>
+            {{ post.views }}
+          </span>
+          <span class="ml-1">
+            {% if post.is_liked %}
+              <img src="{% static 'images/svg/like-fill.svg' %}" id="like_img_{{ post.id }}" 
+                  class="img-icon" alt="likes:" onclick="unlike({{ post.id }})"/>
+              <span id="like_cnt_{{ post.id }}">{{ post.likes }}</span>
+            {% else %}
+              <img src="{% static 'images/svg/like.svg' %}" id="like_img_{{ post.id }}" 
+                  class="img-icon" alt="likes:" onclick="like({{ post.id }})"/>
+              <span id="like_cnt_{{ post.id }}">{{ post.likes }}</span>
+            {% endif %}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}

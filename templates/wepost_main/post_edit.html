@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load bootstrap4 %}
+
+{% block title_block %}
+  Post Edit
+{% endblock title_block %}
+
+{% block body_block %}
+<div class="container">
+  <form role="form" method="post">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    {% buttons submit='OK' reset="Reset" %}{% endbuttons %}
+  </form>
+</div>
+{% endblock body_block %}

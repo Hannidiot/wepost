@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <link href="/static/bootstrap-3.3.7-dist/css/bootstrap.css" rel="stylesheet">
+    <link href="{% static 'css/cover.css' %}" rel="stylesheet">
+
+    <meta charset="UTF-8">
+    <title>WePost</title>
+</head>
+<body class="text-center">
+  <video id="v1" autoplay loop muted>
+        <source src="{% static 'videos/movie.mp4' %}" type="video/mp4"  />
+  </video>
+ <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
+    <header class="masthead mb-auto">
+      <div class="inner">
+        <h3 class="masthead-brand">WePost</h3>
+        <nav class="nav nav-masthead justify-content-center">
+          <a class="nav-link active" href="{% url 'index' %}">Home</a>
+          <a class="nav-link" href="{% url 'wepost_main:explore' %}">Explore</a>
+          <a class="nav-link" href="{% url 'wepost_main:trending' %}">Trending</a>
+        </nav>
+      </div>
+    </header>
+
+    <main role="main" class="inner cover" id="inner_content">
+      <h1 class="cover-heading">We Post !</h1>
+      <p class="lead">Post your moments here and share your life records with the whole world!</p>
+      <p class="lead">
+        <a href="{% url 'account_login' %}" class="btn btn-lg btn-primary">Login</a>
+        <a href="{% url 'account_signup' %}" class="btn btn-lg btn-secondary">Sign Up</a>
+      </p>
+    </main>
+  </div>
+
+<script src="/static/jquery-3.6.0/jquery-3.6.0.js"></script>
+<script src="{% static 'bootstrap-3.3.7-dist/js/popper.min.js' %}"></script>
+<script src="/static/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+<script src="/static/bootstrap-3.3.7-dist/js/jquery-3.2.1.slim.min.js"></script>
+<script>
+    var video= document.getElementById('v1');
+    video.playbackRate = 0.5;
+</script>
+</body>
+</html>
