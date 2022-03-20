@@ -35,9 +35,14 @@ def user_profile_content(request: HttpRequest, user_id, type):
 
 
 def user_profile(request: HttpRequest, user_id):
+    user = request.user
     profile_user = User.objects.select_related("userprofile").get(id=user_id)
+    context={"profile_user": profile_user}
+    if user != "AnonymousUser":
+        ur = UserRelation.objects.filter(followed_user_id=profile_user.id, follower_id=user.id)
+        context['is_followed'] = len(ur) != 0
 
-    return render(request, "account/user_profile.html", context={"profile_user": profile_user})
+    return render(request, "account/user_profile.html", context)
 
 
 @login_required

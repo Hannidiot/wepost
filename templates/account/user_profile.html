@@ -1,10 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block scope_css_block %}
-  {% comment %} <link rel="stylesheet" href="{% static 'css/profile.css' %}" /> {% endcomment %}
-{% endblock scope_css_block %}
-
 {% block body_block %}
 <div class="container mt-2">
   <div class="card">
@@ -19,6 +15,15 @@
         <small>Birthday: {{ profile_user.userprofile.birthday }}</small>
         <br />
         <p>Intro: {{ profile_user.userprofile.intro }}</p>
+      </div>
+      <div class="col-sm-2">
+        <span class="float-right mt-3 mr-5">
+          {% if is_followed %}
+            <button class="btn btn-secondary float-right" id="btn_follow" onclick="unfollow({{ profile_user.id }})">Following</button>
+          {% else %}
+            <button class="btn btn-primary float-right" id="btn_follow" onclick="follow({{ profile_user.id }})">Follow</button>
+          {% endif %}
+        </span>
       </div>
     </div>
   </div>
