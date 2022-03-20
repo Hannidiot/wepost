@@ -14,4 +14,5 @@ __all__ = [
     'unlike',
     'add_comment',
     'delete_comment',
+    'load_most_liked_albums'
 ]

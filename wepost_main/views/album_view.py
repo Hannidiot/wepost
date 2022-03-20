@@ -12,7 +12,6 @@ def explore_page(request: HttpRequest):
 
 def load_explore_page_albums(request: HttpRequest):
     user = request.user
-    print(user)
     if user == "AnonymousUser":
         posts = Like.objects.filter(user_id=user.id).select_related("user", "post").all()
     else:
@@ -21,7 +20,16 @@ def load_explore_page_albums(request: HttpRequest):
         'post_list': posts
     }
 
-    print(context)
-
     return render(request, 'components/album_card_list.html', context)
 
+def load_most_liked_albums(request: HttpRequest):
+    user = request.user
+    if user == "AnonymousUser":
+        posts = Like.objects.filter(user_id=user.id).select_related("user", "post").all()
+    else:
+        posts = Post.objects.select_related('user').all()
+    context = {
+        'post_list': posts
+    }
+
+    return render(request, 'components/album_card_list.html', context)
