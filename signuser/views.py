@@ -2,6 +2,8 @@ from django.http import HttpRequest, JsonResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 
+from wepost_main.utils import ajax_login_required
+
 from .forms import UserForm, UserProfileForm
 from signuser.models import *
 
@@ -17,6 +19,7 @@ def user_profile(request: HttpRequest, user_id):
         else: 
             print(user_form.errors)
 
+    # todo: replace here
     return render(request, "account/author_profile.html")
 
 
@@ -40,7 +43,7 @@ def views_signuser_header_img(request):
     return render(request, "account/author_profile.html")
 
 
-@login_required
+@ajax_login_required
 def follow(request: HttpRequest, user_id):
     if request.method == 'POST':
         login_user = request.user
@@ -68,7 +71,7 @@ def follow(request: HttpRequest, user_id):
     return redirect("index")
 
 
-@login_required
+@ajax_login_required
 def unfollow(request: HttpRequest, user_id):
     if request.method == 'POST':
         login_user = request.user
