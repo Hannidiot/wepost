@@ -7,7 +7,7 @@ from .utils import name_header_img
 
 class UserProfile(models.Model):
     user = models.OneToOneField(to=User, on_delete=models.CASCADE)
-    intro = models.CharField(max_length=300)
+    intro = models.CharField(max_length=300, default="This guy is busy and leaves no intro here.")
     gender = models.IntegerField(
         choices=((1, 'male'), (2, 'female'), (3, 'not willing to tell')),
         default=1

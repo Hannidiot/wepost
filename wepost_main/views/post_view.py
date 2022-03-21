@@ -7,9 +7,13 @@ from signuser.models import UserRelation
 
 from wepost_main.models import *
 from wepost_main.forms import *
+from wepost_main.utils import ajax_login_required
 
 
 def post_detail_page(request: HttpRequest, post_id):
+    """
+        render detail page of post
+    """
     user = request.user
     post = Post.objects.get(id=post_id)
     comments = Comment.objects.filter(post_id=post.id).order_by('-comment_time')
@@ -25,11 +29,15 @@ def post_detail_page(request: HttpRequest, post_id):
         like = Like.objects.filter(post_id=post.id, user_id=user.id)
         context["is_followed"] = len(ur) != 0
         context["is_liked"] = len(like) != 0
+        context["is_mine"] = post.user.id == user.id
     return render(request, "wepost_main/post_detail.html", context)
 
 
 @login_required
 def post_edit(request: HttpRequest, post_id):
+    """
+        render post edit page and handle POST request from it
+    """
     post = Post.objects.get(id=post_id)
     form = PostForm(instance=post)
     user = request.user
@@ -42,7 +50,6 @@ def post_edit(request: HttpRequest, post_id):
 
         if form.is_valid():
             post = form.save(commit=False)
-            post.user_id = user.id
             post.save()
 
             return redirect(reverse("wepost_main:post_detail", kwargs={"post_id": post_id}))
@@ -52,12 +59,17 @@ def post_edit(request: HttpRequest, post_id):
 
 @login_required
 def post_create(request: HttpRequest):
+    """
+        render post create page and handle POST request from it
+    """
     form = PostForm()
     user = request.user
 
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES)
+        form.user = user
 
+        print(form.is_valid())
         if form.is_valid():
             post = form.save(commit=False)
             post.user_id = user.id
@@ -70,6 +82,9 @@ def post_create(request: HttpRequest):
 
 @login_required
 def post_delete(request: HttpRequest, post_id):
+    """
+        delete post
+    """
     if request.method == 'POST':
         post = Post.objects.get(id=post_id)
         user = request.user
@@ -82,8 +97,11 @@ def post_delete(request: HttpRequest, post_id):
     return redirect(reverse("wepost_main:explore"))
 
 
-@login_required
+@ajax_login_required
 def like(request: HttpRequest, post_id):
+    """
+        [AJAX] like post api
+    """
     if request.method == 'POST':
         post = Post.objects.get(id=post_id)
         if post == None: return JsonResponse({"status": "fail", "msg": "post doesn't exist"})
@@ -103,8 +121,11 @@ def like(request: HttpRequest, post_id):
     return redirect(reverse("wepost_main:explore"))
 
 
-@login_required
+@ajax_login_required
 def unlike(request: HttpRequest, post_id):
+    """
+        [AJAX] unlike post api
+    """
     if request.method == 'POST':
         post = Post.objects.get(id=post_id)
         if post == None: return JsonResponse({"status": "fail", "msg": "post doesn't exist"})
@@ -124,6 +145,9 @@ def unlike(request: HttpRequest, post_id):
 
 
 def get_comments(request: HttpRequest, post_id):
+    """
+        [AJAX] load comments of requested post
+    """
     comments = Comment.objects.filter(post_id=post_id).select_related("user__userprofile")
     context = {
         "comments": comments
@@ -132,8 +156,11 @@ def get_comments(request: HttpRequest, post_id):
     return render(request, "components/comment_list.html", context)
 
 
-@login_required
+@ajax_login_required
 def add_comment(request: HttpRequest, post_id):
+    """
+        [AJAX] add comment
+    """
     if request.method == 'POST':
         post = Post.objects.get(id=post_id)
         if (post == None): return JsonResponse({"status": "fail", "msg": "post doesn't exist"})
@@ -152,8 +179,11 @@ def add_comment(request: HttpRequest, post_id):
 
 
 
-@login_required
+@ajax_login_required
 def delete_comment(request: HttpRequest, post_id, comment_id):
+    """
+        [AJAX] delete comment
+    """
     if request.method == 'POST':
         comment = Comment.objects.get(id=comment_id)
         user = request.user
