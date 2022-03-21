@@ -58,6 +58,10 @@ def add_post(username, title, description, pic_name, likes=0, views=0):
     post.views = views
     post.save()
 
+    up = UserProfile.objects.get(user_id=user.id)
+    up.posts += 1
+    up.save()
+
     return post
 
 
@@ -78,6 +82,9 @@ def add_comment(username, post_title, content):
     comment = Comment.objects.get_or_create(user=user, post=post)[0]
     comment.content = content
     comment.save()
+
+    post.comments += 1
+    post.save()
 
     return comment
 

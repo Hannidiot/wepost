@@ -11,7 +11,7 @@ def explore_page(request: HttpRequest):
 
 def load_explore_page_albums(request: HttpRequest):
     user = request.user
-    posts = Post.objects.select_related('user').all()
+    posts = Post.objects.select_related('user', 'user__userprofile').all()
     if user != "AnonymousUser":
         for post in posts:
             likes = post.like_set.filter(user_id=user.id)

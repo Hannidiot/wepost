@@ -1,0 +1,19 @@
+{% load static %}
+
+{% for followed in followeds %}
+<div class="card mt-2">
+  <div class="row">
+    <div class="col-sm-3 mx-auto">
+      <img class="img-fluid img-thumbnail rounded-circle" src="{{ MEDIA_URL}}{{ followed.followed_user.userprofile.header_img }}" />
+    </div>
+    <div class="col-sm-8">
+      <a href="{% url 'signuser:user_profile' followed.followed_user.id %}"><h3 class="my-2">{{ followed.followed_user.username }}</h3></a>
+      <div>{{ followed.followed_user.userprofile.intro }}</div>
+      <br />
+      <div>Posts: {{ followed.followed_user.userprofile.posts }}</div>
+      <div>Follower: {{ followed.followed_user.userprofile.followers }}</div>
+      <div>Following: {{ followed.followed_user.userprofile.following }}</div>
+    </div>
+  </div>
+</div>
+{% endfor %}
