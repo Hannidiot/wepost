@@ -11,9 +11,7 @@
   <form role="form" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {% bootstrap_form form %}
-    <button type="submit" class="btn btn-primary">OK</button>
-    <button type="reset" class="btn btn-primary">Reset</button>
-    {% comment %} {% buttons submit='OK' reset="Reset" %}{% endbuttons %} {% endcomment %}
+    {% buttons submit='OK' reset="Reset" %}{% endbuttons %}
   </form>
 </div>
 {% endblock body_block %}
