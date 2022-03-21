@@ -13,3 +13,7 @@ To deploy this project on your device, please
     python populate_script.py
     python manage.py runserver
 ```
+
+## Tests
+
+it is not recommended to run the tests file, because the populate script contains way too much information of users and posts which makes every execution of `populate()` cost a long time.
