@@ -140,4 +140,5 @@ cython_debug/
 
 .idea/
 .DS_Store/
-post_images/
+media/
+!media/images/
