@@ -27,13 +27,15 @@ function add_comment() {
                 if (response.status == "success") {
                     add_alert("add comment success!")
                     load_comments(post_id)
+                    var comment_cnt = parseInt($("#comment_cnt").text())
+                    $("#comment_cnt").text(comment_cnt + 1)
                 }
                 else {
                     add_alert(response.msg)
                 }
             },
             error: function (response) {
-                console.log(response.responseJSON)
+                add_alert("Please Login first!")
             }
         })
     }
