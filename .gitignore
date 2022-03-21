@@ -139,5 +139,6 @@ dmypy.json
 cython_debug/
 
 .idea/
-.DS_Store/
-post_images/
+.DS_Store
+media/
+!media/images/
