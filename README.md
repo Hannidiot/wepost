@@ -7,7 +7,7 @@
 ## Deployment
 To deploy this project on your device, please 
 ```
-    pip install -r requirements
+    pip install -r requirements.txt
     python manage.py makemigrations signuser wepost_main
     python manage.py migrate
     python populate_script.py
