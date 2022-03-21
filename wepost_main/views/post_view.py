@@ -11,6 +11,9 @@ from wepost_main.utils import ajax_login_required
 
 
 def post_detail_page(request: HttpRequest, post_id):
+    """
+        render detail page of post
+    """
     user = request.user
     post = Post.objects.get(id=post_id)
     comments = Comment.objects.filter(post_id=post.id).order_by('-comment_time')
@@ -32,6 +35,9 @@ def post_detail_page(request: HttpRequest, post_id):
 
 @login_required
 def post_edit(request: HttpRequest, post_id):
+    """
+        render post edit page and handle POST request from it
+    """
     post = Post.objects.get(id=post_id)
     form = PostForm(instance=post)
     user = request.user
@@ -53,6 +59,9 @@ def post_edit(request: HttpRequest, post_id):
 
 @login_required
 def post_create(request: HttpRequest):
+    """
+        render post create page and handle POST request from it
+    """
     form = PostForm()
     user = request.user
 
@@ -73,6 +82,9 @@ def post_create(request: HttpRequest):
 
 @login_required
 def post_delete(request: HttpRequest, post_id):
+    """
+        delete post
+    """
     if request.method == 'POST':
         post = Post.objects.get(id=post_id)
         user = request.user
@@ -87,6 +99,9 @@ def post_delete(request: HttpRequest, post_id):
 
 @ajax_login_required
 def like(request: HttpRequest, post_id):
+    """
+        [AJAX] like post api
+    """
     if request.method == 'POST':
         post = Post.objects.get(id=post_id)
         if post == None: return JsonResponse({"status": "fail", "msg": "post doesn't exist"})
@@ -108,6 +123,9 @@ def like(request: HttpRequest, post_id):
 
 @ajax_login_required
 def unlike(request: HttpRequest, post_id):
+    """
+        [AJAX] unlike post api
+    """
     if request.method == 'POST':
         post = Post.objects.get(id=post_id)
         if post == None: return JsonResponse({"status": "fail", "msg": "post doesn't exist"})
@@ -127,6 +145,9 @@ def unlike(request: HttpRequest, post_id):
 
 
 def get_comments(request: HttpRequest, post_id):
+    """
+        [AJAX] load comments of requested post
+    """
     comments = Comment.objects.filter(post_id=post_id).select_related("user__userprofile")
     context = {
         "comments": comments
@@ -137,6 +158,9 @@ def get_comments(request: HttpRequest, post_id):
 
 @ajax_login_required
 def add_comment(request: HttpRequest, post_id):
+    """
+        [AJAX] add comment
+    """
     if request.method == 'POST':
         post = Post.objects.get(id=post_id)
         if (post == None): return JsonResponse({"status": "fail", "msg": "post doesn't exist"})
@@ -157,6 +181,9 @@ def add_comment(request: HttpRequest, post_id):
 
 @ajax_login_required
 def delete_comment(request: HttpRequest, post_id, comment_id):
+    """
+        [AJAX] delete comment
+    """
     if request.method == 'POST':
         comment = Comment.objects.get(id=comment_id)
         user = request.user

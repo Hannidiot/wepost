@@ -1,6 +1,7 @@
 from django.http import HttpRequest, JsonResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.urls import reverse
 from wepost_main.models import Post
 
 from wepost_main.utils import ajax_login_required
@@ -10,6 +11,14 @@ from signuser.models import *
 
 
 def user_profile_content(request: HttpRequest, user_id, type):
+    """
+        [AJAX] for loading content in user profile pages
+
+        type:
+            posts: return all posts under requested user
+            followers: return all followers of requested user
+            following: return all following users of requested user
+    """
     context = {}
     user = request.user
 
@@ -35,6 +44,9 @@ def user_profile_content(request: HttpRequest, user_id, type):
 
 
 def user_profile(request: HttpRequest, user_id):
+    """
+        render user profile page
+    """
     user = request.user
     profile_user = User.objects.select_related("userprofile").get(id=user_id)
     context={"profile_user": profile_user}
@@ -47,17 +59,26 @@ def user_profile(request: HttpRequest, user_id):
 
 @login_required
 def user_profile_edit(request: HttpRequest, user_id):
-    user_profile = UserProfile.objects.get(user_id=user_id)
-    form = UserProfileForm(instance=user_profile)
+    """
+        render edit profile page and handling POST request from it
+    """
+    profile_user = UserProfile.objects.get(user_id=user_id)
+    form = UserProfileForm(instance=profile_user)
 
     if request.method == 'POST':
-        pass
+        form = UserProfileForm(request.POST, request.FILES, instance=profile_user)
+        form.save()
+
+        return redirect(reverse("signuser:user_profile", kwargs={"user_id": user_id}))
 
     return render(request, "account/user_profile_edit.html", {"form": form})
 
 
 @ajax_login_required
 def follow(request: HttpRequest, user_id):
+    """
+        [AJAX] follow user api
+    """
     if request.method == 'POST':
         login_user = request.user
         followed_user = User.objects.get(id=user_id)
@@ -86,6 +107,9 @@ def follow(request: HttpRequest, user_id):
 
 @ajax_login_required
 def unfollow(request: HttpRequest, user_id):
+    """
+        [AJAX] unfollow user api
+    """
     if request.method == 'POST':
         login_user = request.user
         followed_user = User.objects.get(id=user_id)
