@@ -26,6 +26,7 @@ def post_detail_page(request: HttpRequest, post_id):
         like = Like.objects.filter(post_id=post.id, user_id=user.id)
         context["is_followed"] = len(ur) != 0
         context["is_liked"] = len(like) != 0
+        context["is_mine"] = post.user.id == user.id
     return render(request, "wepost_main/post_detail.html", context)
 
 
@@ -43,7 +44,6 @@ def post_edit(request: HttpRequest, post_id):
 
         if form.is_valid():
             post = form.save(commit=False)
-            post.user_id = user.id
             post.save()
 
             return redirect(reverse("wepost_main:post_detail", kwargs={"post_id": post_id}))
@@ -58,7 +58,9 @@ def post_create(request: HttpRequest):
 
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES)
+        form.user = user
 
+        print(form.is_valid())
         if form.is_valid():
             post = form.save(commit=False)
             post.user_id = user.id

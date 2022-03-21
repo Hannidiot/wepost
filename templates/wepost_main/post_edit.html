@@ -8,10 +8,12 @@
 
 {% block body_block %}
 <div class="container">
-  <form role="form" method="post">
+  <form role="form" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {% bootstrap_form form %}
-    {% buttons submit='OK' reset="Reset" %}{% endbuttons %}
+    <button type="submit" class="btn btn-primary">OK</button>
+    <button type="reset" class="btn btn-primary">Reset</button>
+    {% comment %} {% buttons submit='OK' reset="Reset" %}{% endbuttons %} {% endcomment %}
   </form>
 </div>
 {% endblock body_block %}

@@ -53,6 +53,10 @@
           <span id="like_cnt_{{ post.id }}" class="ml-1">{{ post.likes }}</span>
         </span>
         <span class="float-right">
+          <small>{{ post.post_time }}</small>
+          {% if is_mine %}
+            <a href="{% url 'wepost_main:post_edit' post.id %}"><label class="btn btn-secondary">Edit</label></a>
+          {% endif %}
         </span>
       </div>
     </div>
